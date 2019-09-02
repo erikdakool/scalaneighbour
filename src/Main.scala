@@ -1,10 +1,23 @@
 object Main extends App {
+  val xl = 4;
+  val yl = 4;
   val defaultNeighbour = List((0,null),(0,null),(0,null),(0,null))
-  class Square(val x:Int,val y:Int, val values:List[Int] = List(1,2,3,4), val solved:Boolean = false,val neighbour:List[(Int,Square)]=defaultNeighbour)
+  val dn = List[(Int,Square)]();
+  class Square(val x:Int,val y:Int, val values:List[Int] = List(1,2,3,4), val solved:Boolean = false,val neighbour:List[(Int,Square)]=dn)
   {
     def setNeighbour(x:Int,y:Int): Square ={
       val neighbour = List((2,getSquareXY(x,y)));
       return new Square(this.x,this.y,this.values,this.solved,this.neighbour :+ neighbour(0));
+    }
+
+    def setNeighbour(in:(Int,Square)):Square = {
+      val neighbour = this.neighbour :+ in;
+      return new Square(this.x,this.y,this.values,this.solved,neighbour);
+    }
+
+    def updateNeighbour(in:(Int,Square)):Square = {
+      val neighbour = this.neighbour.filter(_._2!=in._2) :+ in;
+      return new Square(this.x,this.y,this.values,this.solved,neighbour);
     }
 
     def removeValue(in:Int):Square = {
@@ -17,12 +30,17 @@ object Main extends App {
     }
 
     def setValue(solution:Int):Square = {
-      val solution = List(solution);
-      return new Square(this.x,this.y,solution,true,this.neighbour :+ neighbour(0));
+      val l = List(solution);
+      return new Square(this.x,this.y,l,true,this.neighbour);
+    }
+
+    override def toString() = {
+      "x" + x + " y" + y + " " + values.mkString(",") + " " + "\n"
     }
   }
 
   def getSquareXY(x:Int, y:Int):Square = {
+    if(x > xl || y > yl || x ==0 || y ==0) return null
     val s = allSquare.filter(_.x==x).filter(_.y==y)(0);
     return s;
   }
@@ -40,13 +58,34 @@ object Main extends App {
     s = s.setValue(sol);
     allSquare = allSquare :+s;
   }
-  var s = new Square(1,1);
+
+  def setNeighbour(x:Int,y:Int,in:(Int,Square)) = {
+    var s = getSquareXY(x,y);
+    allSquare = allSquare.filter(_!=s);
+    s = s.setNeighbour(in);
+    allSquare = allSquare :+s;
+  }
+
+  def updateNeighbour(x:Int,y:Int,in:(Int,Square)) ={
+    var s = getSquareXY(x,y);
+    allSquare = allSquare.filter(_!= s);
+    s = s.updateNeighbour(in);
+    allSquare = allSquare :+s;
+  }
 
   var allSquare = List[Square]();
   for (x <- List(1,2,3,4)){
     for(y<-List(1,2,3,4)){
       val s = new Square(x,y);
       allSquare = allSquare :+ s;
+    }
+  }
+
+  for(s<-allSquare){
+    val l = List((s.x+1,s.y),(s.x-1,s.y),(s.x,s.y-1),(s.x,s.y+1));
+    for(co<-l){
+      val ts = getSquareXY(co._1,co._2);
+      if(ts!= null) setNeighbour(s.x,s.y,(1,ts));
     }
   }
 
@@ -62,17 +101,11 @@ object Main extends App {
   neighbours = neighbours :+ ((4,4),(4,3));
 
   for(s <- neighbours){;
-    var sq = getSquareXY(s._1._1,s._1._2)
-    if(sq.neighbour.length >=4){
-      allSquare = allSquare.filter(_!=sq);
-      sq =  sq.setNeighbour(s._2._1,s._2._2);
-      allSquare = allSquare :+ sq;
+    val s1 = getSquareXY(s._1._1,s._1._2);
+    val s2 = getSquareXY(s._2._1,s._2._2);
 
-      sq = getSquareXY(s._2._1,s._2._2);
-      allSquare = allSquare.filter(_!=sq);
-      sq = sq.setNeighbour(s._1._1,s._1._2);
-      allSquare = allSquare :+ sq;
-    }
+    updateNeighbour(s1.x,s1.y,(2,s2));
+    updateNeighbour(s2.x,s2.y,(2,s1));
   }
 
   def solved():Boolean = {
