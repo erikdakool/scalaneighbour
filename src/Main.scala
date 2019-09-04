@@ -1,5 +1,6 @@
 object Main extends App {
   val xl = 4;
+  val Xl = 4;
   val yl = 4;
   val defaultNeighbour = List((0,null),(0,null),(0,null),(0,null))
   val dn = List[(Int,Square)]();
@@ -16,8 +17,26 @@ object Main extends App {
     }
 
     def updateNeighbour(in:(Int,Square)):Square = {
-      val neighbour = this.neighbour.filter(_._2!=in._2) :+ in;
+      val neighbour = this.neighbour.filter(in._2.x != _._2.x).filter(in._2.y !=_._2.y) :+ in;
       return new Square(this.x,this.y,this.values,this.solved,neighbour);
+    }
+
+    def removeValues(in:List[Int]):Square = {
+      val s = values.filter(!in.contains(_))
+      if(s.length ==1){
+        return new Square(this.x,this.y,s,true,this.neighbour :+ neighbour(0));
+      }else{
+        return new Square(this.x,this.y,s,false,this.neighbour :+ neighbour(0));
+      }
+    }
+
+    def setValues(in:List[Int]):Square = {
+      val s = values.filter(in.contains(_))
+      if(s.length ==1){
+        return new Square(this.x,this.y,s,true,this.neighbour :+ neighbour(0));
+      }else{
+        return new Square(this.x,this.y,s,false,this.neighbour :+ neighbour(0));
+      }
     }
 
     def removeValue(in:Int):Square = {
@@ -34,6 +53,10 @@ object Main extends App {
       return new Square(this.x,this.y,l,true,this.neighbour);
     }
 
+    def getNeighbours():List[Square] = {
+      neighbour.foldRight(List[Square]())(_._2::_);
+    }
+    
     override def toString() = {
       "x" + x + " y" + y + " " + values.mkString(",") + " " + "\n"
     }
@@ -52,27 +75,84 @@ object Main extends App {
     allSquare = allSquare :+s;
   }
 
-  def setValue(x:Int,y:Int,sol:Int)={
+  def removeValues(x:Int,y:Int,sol:List[Int])={
+    var s = getSquareXY(x,y);
+    allSquare = allSquare.filter(_!=s);
+    s = s.removeValues(sol);
+    allSquare = allSquare :+s;
+  }
+
+  def setValue(x:Int,y:Int,sol:Int):Unit={
     var s = getSquareXY(x,y)
     allSquare = allSquare.filter(_!=s);
     s = s.setValue(sol);
     allSquare = allSquare :+s;
   }
 
-  def setNeighbour(x:Int,y:Int,in:(Int,Square)) = {
+  def setValues(x:Int,y:Int,sol:List[Int]):Unit={
+    var s = getSquareXY(x,y)
+    allSquare = allSquare.filter(_!=s);
+    s = s.setValues(sol);
+    allSquare = allSquare :+s;
+  }
+
+  def setNeighbour(x:Int,y:Int,in:(Int,Square)):Unit = {
     var s = getSquareXY(x,y);
     allSquare = allSquare.filter(_!=s);
     s = s.setNeighbour(in);
     allSquare = allSquare :+s;
   }
 
-  def updateNeighbour(x:Int,y:Int,in:(Int,Square)) ={
+  def updateNeighbour(x:Int,y:Int,in:(Int,Square)):Unit ={
     var s = getSquareXY(x,y);
     allSquare = allSquare.filter(_!= s);
     s = s.updateNeighbour(in);
     allSquare = allSquare :+s;
   }
 
+  //Pattern matching
+  def getValueFromLane(l:List[Int]):Int ={
+    val l2 = List.range(1,xl+1).filter(!l.contains(_));
+    l2(0)
+  }
+
+  def getNeighbourPossibleValues(s:Int):List[Int] = {
+    val ret = proofValue(s match {
+      case 1  => List(2);
+      case Xl => List(xl-1);
+      case _  => List(s+1,s-1);
+    })
+    ret;
+  }
+
+  def getNeighbourNotValue(s:Int):List[Int] = {
+    proofValue(List(s-1,s,s+1));
+  }
+
+  def proofValue(l:List[Int]):List[Int] = {
+    l.filter(_<=xl).filter(_>=1);
+  }
+
+  def getAllX(x:Int):List[Square] = {
+    allSquare.filter(_.x == x);
+  }
+
+  def getAllY(y:Int):List[Square] = {
+    allSquare.filter(_.y==y);
+  }
+
+  def printSolution() = {
+    var output:String = ""
+    for(y<-List(1,2,3,4)){
+      for(x<- List(1,2,3,4)){
+        var s = getSquareXY(x,y);
+        if(s.values.length == 1) output += s.values(0) + "|"
+        else {output +=  s.values+ "|"}
+      }
+      output+="\n"
+    }
+    print(output)
+  }
   var allSquare = List[Square]();
   for (x <- List(1,2,3,4)){
     for(y<-List(1,2,3,4)){
@@ -119,9 +199,32 @@ object Main extends App {
       }
     }
   }
-
   setValue(2,1,1);
   setValue(3,4,3);
 
-  println(allSquare)
+  println(getSquareXY(2,1).getNeighbours())
+  println(getSquareXY(3,1).neighbour)
+  printSolution();
+/*
+  println(getNeighbourPossibleValues(2));
+  println(getNeighbourNotValue(2));
+
+  val s1 = getSquareXY(1,1);
+  val s2 = getSquareXY(2,1);
+  val v1 = getNeighbourPossibleValues(s2.values(0));
+  setValues(1,1,v1);
+  println(getSquareXY(1,1).values)
+
+  val s3 = getSquareXY(1,1);
+  val v2 = getNeighbourPossibleValues(s3.values(0))
+  val v3 = getNeighbourNotValue(s3.values(0))
+
+
+  println(v2);
+  println(v3)
+  printSolution();
+
+  removeValues(2,2,getNeighbourNotValue(1));
+  println(getSquareXY(2,2).values)
+  //println(allSquare)*/
 }
