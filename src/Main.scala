@@ -47,6 +47,14 @@ object Main extends App {
     }
   }
 
+  var allSquare = List[Square]();
+  for (x <- List(1,2,3,4)){
+    for(y<-List(1,2,3,4)){
+      val s = new Square(x,y);
+      allSquare = allSquare :+ s;
+    }
+  }
+
   def getSquareXY(x:Int, y:Int):Square = {
     if(x > xl || y > yl || x ==0 || y ==0) return null
     val s = allSquare.filter(_.x==x).filter(_.y==y)(0);
@@ -108,6 +116,7 @@ object Main extends App {
     proofValue(List.range(1,Xl+1).filterNot(n.contains(_)));
   }
 
+
   def getNotNeighbourNotValues(s:Int):List[Int] = {
     proofValue(List(s-1,s,s+1));
   }
@@ -148,13 +157,6 @@ object Main extends App {
     }
     print(output)
   }
-  var allSquare = List[Square]();
-  for (x <- List(1,2,3,4)){
-    for(y<-List(1,2,3,4)){
-      val s = new Square(x,y);
-      allSquare = allSquare :+ s;
-    }
-  }
 
   for(s<-allSquare){
     val l = List((s.x+1,s.y),(s.x-1,s.y),(s.x,s.y-1),(s.x,s.y+1));
@@ -187,10 +189,6 @@ object Main extends App {
     updateNeighbour(s2.x,s2.y,(2,s1));
   }
 
-  for(s<-allSquare){
-    println(s.neighbour.length)
-  }
-
   setValues(1,1,List(1));
   setValues(4,4,List(1));
 
@@ -203,7 +201,7 @@ object Main extends App {
         if(s.solved){
           for(n<-s.neighbour){
             if(!n._2.solved){
-              println(s.x + " " + s.y + " is setting at " + n._2.x + " " + n._2.y + n._2.solved)
+              println(s.x + " " + s.y + " is setting at " + n._2.x + " " + n._2.y)
               SolveSquare(s.values(0),n._2,n._1)
             };
           }
@@ -237,7 +235,6 @@ object Main extends App {
       }
     }
   }
-
 
   println("-------------")
   printSolution();
