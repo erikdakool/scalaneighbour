@@ -1,7 +1,7 @@
 object Main extends App {
-  val xl = 4;
+  //val xl = 4;
   val Xl = 4;
-  val yl = 4;
+  //val yl = 4;
   val dn = List[(Int,Square)]();
   class Square(val x:Int,val y:Int, val values:List[Int] = List(1,2,3,4), val solved:Boolean = false,val neighbour:List[(Int,Square)]=dn)
   {
@@ -48,7 +48,7 @@ object Main extends App {
   }
 
   def getSquareXY(x:Int, y:Int):Square = {
-    if(x > xl || y > yl || x ==0 || y ==0) return null
+    if(x > Xl || y > Xl || x ==0 || y ==0) return null
     val s = allSquare.filter(_.x==x).filter(_.y==y)(0);
     return s;
   }
@@ -85,18 +85,30 @@ object Main extends App {
 
   //Pattern matching
   def getValueFromLane(l:List[Int]):Int ={
-    val l2 = List.range(1,xl+1).filter(!l.contains(_));
+    val l2 = List.range(1,Xl+1).filter(!l.contains(_));
     l2(0)
   }
 
-  def getNeighbourPossibleValues(s:Int):List[Int] = {
-    val ret = proofValue(s match {
-      case 1  => List(2);
-      case Xl => List(xl-1);
-      case _  => List(s+1,s-1);
-    })
-    proofValue(ret);
+  def getNeighbourPossibleValues(s:List[Int]):List[Int] = {
+    /*if(s.size==1) {
+      val ret = s.head match {
+        case 1 => List(2);
+        case Xl => List(Xl - 1);
+        case _ => List(s.head + 1, s.head - 1);
+      }
+       proofValue(ret);
+    }
+    else{*/
+      val higherNeighbour:List[Int] = for(x <- s)
+        yield x+1
+
+      val lowerNeighbour:List[Int] = for(x <- s)
+        yield x-1
+
+      proofValue((higherNeighbour ::: lowerNeighbour).distinct)
+    //}
   }
+
 
   def getNeighbourNotValues(s:Int):List[Int] = {
     val n = List(s-1,s+1)
@@ -113,7 +125,7 @@ object Main extends App {
   }
 
   def proofValue(l:List[Int]):List[Int] = {
-    l.filter(_<=xl).filter(_>=1);
+    l.filter(_<=Xl).filter(_>=1);
   }
 
   def getAllX(x:Int):List[Square] = {
@@ -232,7 +244,7 @@ object Main extends App {
       }else if (t==2){
         removeValues(s.x,s.y,getNeighbourNotValues(i));
         if(!s.solved){
-          setValues(s.x,s.y,getNeighbourPossibleValues(i));
+          setValues(s.x,s.y,getNeighbourPossibleValues(List(i)));
         }
       }
     }
