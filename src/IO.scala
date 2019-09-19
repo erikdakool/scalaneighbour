@@ -1,8 +1,8 @@
-import Main.Square;
 import java.io._;
+import Solver.SolveSquare;
 
-object IO extends App {
-  var inputdir = "src/Input/";
+class IO {
+  val inputdir = "src/Input/";
   import java.io.File;
 
   val dir = new File(inputdir);
@@ -11,11 +11,11 @@ object IO extends App {
   }
 
   def solveSlitherLinks(f:File):Unit = {
-
     println(f.getName());
     val lines = scala.io.Source.fromFile(f).mkString.split("\n")
 
-    val matrix = Array.ofDim[Int](lines(1).toCharArray()(5).asDigit,lines(1).toCharArray()(5).asDigit);
+    val XL = lines(1).toCharArray()(5).asDigit;
+    val matrix = Array.ofDim[Int](XL,XL);
 
     var allSquares = List[Square]();
     var neighbours : List[((Int,Int),(Int,Int))] = List()
@@ -89,6 +89,8 @@ object IO extends App {
       updateNeighbourXY(s2.x,s2.y,(2,s1));
     }
 
+    allSquares = Solver.SolveSquare(allSquares,XL);
+
     def printSolution() = {
       var output:String = ""
       for(y<-List(1,2,3,4)){
@@ -99,8 +101,8 @@ object IO extends App {
         }
         output+="\n"
       }
-      print(output);
+      print(output)
     }
-    printSolution()
+    printSolution();
   }
 }
