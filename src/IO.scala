@@ -7,7 +7,7 @@ class IO {
 
   val dir = new File(inputdir);
   for(f<-dir.listFiles()){
-    if(f.getName() == "puzzle1"){
+    if(f.getName() == "puzzle_unsolved.txt"){
       val lines = scala.io.Source.fromFile(f).mkString.split("\n")
       println(solveNextBoard(lines.takeRight(lines.length-1)))
     }
@@ -104,6 +104,6 @@ class IO {
       return output;
     }
 
-    return printSolution();
+    printSolution();
   }
 }

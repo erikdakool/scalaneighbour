@@ -34,15 +34,9 @@ object Solver {
 
     if(!s.solved) {
       if(t==1){
-        removeValues(s.x,s.y,getNotNeighbourNotValues(i));
-        if(!s.solved){
           setValues(s.x,s.y,getNotNeighbourPossibleValues(i));
-        }
       }else if (t==2){
-        removeValues(s.x,s.y,getNeighbourNotValues(i));
-        if(!s.solved){
           setValues(s.x,s.y,getNeighbourPossibleValues(List(i)));
-        }
       }
     }
   }
@@ -89,20 +83,9 @@ object Solver {
     //}
   }
 
-
-  def getNeighbourNotValues(s:Int):List[Int] = {
-    val n = List(s-1,s+1)
-    proofValue(List.range(1,Xl+1).filterNot(n.contains(_)))
-  }
-
   def getNotNeighbourPossibleValues(s:Int):List[Int] = {
     val n = List(s-1,s,s+1);
     proofValue(List.range(1,Xl+1).filterNot(n.contains(_)));
-  }
-
-
-  def getNotNeighbourNotValues(s:Int):List[Int] = {
-    proofValue(List(s-1,s,s+1));
   }
 
   def proofValue(l:List[Int]):List[Int] = {
@@ -120,7 +103,8 @@ object Solver {
   def getValuesFromX(x:Int):List[Int] ={
     val allX = getAllX(x);
     val s = allX.filter(x=>(x.solved));
-    proofValue(List.range(1,Xl+1).filter(x=>(s.exists(s=>s.values(0)==x))));  }
+    proofValue(List.range(1,Xl+1).filter(x=>(s.exists(s=>s.values(0)==x))));
+  }
 
   def getValuesFromY(y:Int):List[Int] ={
     val allY = getAllY(y);
