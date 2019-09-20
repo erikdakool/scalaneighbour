@@ -98,34 +98,55 @@ object Main extends App {
   }
 
   def getNeighbourPossibleValues(s:List[Int]):List[Int] = {
-    /*if(s.size==1) {
-      val ret = s.head match {
-        case 1 => List(2);
-        case Xl => List(Xl - 1);
-        case _ => List(s.head + 1, s.head - 1);
-      }
-       proofValue(ret);
-    }
-    else{*/
+
       val higherNeighbour:List[Int] = for(x <- s)
         yield x+1
 
       val lowerNeighbour:List[Int] = for(x <- s)
         yield x-1
 
-      proofValue((higherNeighbour ::: lowerNeighbour).distinct)
-    //}
+    proofValue((higherNeighbour ::: lowerNeighbour).distinct)
+
   }
 
 
-  def getNeighbourNotValues(s:Int):List[Int] = {
-    val n = List(s-1,s+1)
-    proofValue(List.range(1,Xl+1).filterNot(n.contains(_)))
+  def getNeighbourNotValues(s:List[Int]):List[Int] = {
+    s.size match {
+      case 1 => {
+        val n = List(s.head-1,s.head+1)
+        return proofValue(List.range(1,Xl+1).filterNot(n.contains(_)))
+      }
+      case _ => List(0,3,1);
+    }
   }
 
-  def getNotNeighbourPossibleValues(s:Int):List[Int] = {
-    val n = List(s-1,s,s+1);
-    proofValue(List.range(1,Xl+1).filterNot(n.contains(_)));
+  def getNotNeighbourPossibleValues(s:List[Int]):List[Int] = {
+    s.size match{
+      case 1 => {
+        val n = List(s.head-1,s.head,s.head+1);
+        proofValue(List.range(1,Xl+1).filterNot(n.contains(_)));
+      }
+      case 2 =>{
+        if(s.head==s.last-1 || s.head==s.last+1){
+          List(s.head,s.last)
+        }
+        else if(s.head==s.last-2 || s.head==s.last+2){
+          List((s.head+s.last)/2)
+        }
+        else{
+          return List[Int]()
+        }
+      }
+      case 3=>{
+        if((s.head==s(1)+1 && s.last==s(1)-1) || (s.head==s(1)-1 && s.last==s(1)+1)){
+          List(s(1))
+        }
+        else{
+          List[Int]()
+        }
+      }
+      case _ => return List[Int]()
+    }
   }
 
 
@@ -214,7 +235,7 @@ object Main extends App {
           for(n<-s.neighbour){
             if(!n._2.solved){
               println(s.x + " " + s.y + " is setting at " + n._2.x + " " + n._2.y)
-              SolveSquare(s.values(0),n._2,n._1)
+              SolveSquare(s.values,n._2,n._1)
             };
           }
         }
@@ -225,7 +246,7 @@ object Main extends App {
     }
   }
 
-  def SolveSquare(i:Int,s:Square,t:Int): Unit ={
+  def SolveSquare(i:List[Int],s:Square,t:Int): Unit ={
     if(!s.solved){
       removeValues(s.x,s.y,getValuesFromY(s.y));
     }
@@ -235,15 +256,9 @@ object Main extends App {
 
     if(!s.solved) {
       if(t==1){
-        removeValues(s.x,s.y,getNotNeighbourNotValues(i));
-        if(!s.solved){
           setValues(s.x,s.y,getNotNeighbourPossibleValues(i));
-        }
-      }else if (t==2){
-        removeValues(s.x,s.y,getNeighbourNotValues(i));
-        if(!s.solved){
-          setValues(s.x,s.y,getNeighbourPossibleValues(List(i)));
-        }
+      }else if (t==2) {
+        setValues(s.x, s.y, getNeighbourPossibleValues(i));
       }
     }
   }
