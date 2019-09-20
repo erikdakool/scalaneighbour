@@ -7,46 +7,48 @@ class IO {
 
   val dir = new File(inputdir);
   for(f<-dir.listFiles()){
-    solveSlitherLinks(f)
+    if(f.getName() == "puzzle1"){
+      val lines = scala.io.Source.fromFile(f).mkString.split("\n")
+      println(solveNextBoard(lines.takeRight(lines.length-1)))
+    }
   }
 
-  def solveSlitherLinks(f:File):Unit = {
-    println(f.getName());
-    val lines = scala.io.Source.fromFile(f).mkString.split("\n")
+  def solveNextBoard(s:Array[String]):String = {
+    val XL = s(0).toCharArray()(5).asDigit;
+    val solved = solveBoard(s.take(XL*2));
+    if(s.length > XL){
+      return solved + "\n" + solveNextBoard(s.takeRight(s.length-XL*2))
+    }else{
+      return solved
+    }
+  }
 
-    val XL = lines(1).toCharArray()(5).asDigit;
-    val matrix = Array.ofDim[Int](XL,XL);
+  def solveBoard(s:Array[String]):String = {
+    val lines = s;
+    val XL = lines(0).toCharArray()(5).asDigit;
 
     var allSquares = List[Square]();
     var neighbours : List[((Int,Int),(Int,Int))] = List()
-    val dn = List[(Int,Square)]();
-    for(y<- 2 to lines.length-1){
+    for(y<- 1 until XL*2){
       val l = lines(y).toCharArray;
-      for(x<- 0 until l.length by 2){
-        println(l(x))
+      for(x<- 0 until XL*3+2 by 2){
         l(x) match{
           case '_' => {
-            matrix((y-2)/2)(x/4) = 0
-            val s = new Square(x/4+1,(y-2)/2 +1,neighbour =  dn);
+            val s = new Square(x/4+1,(y-1)/2+1);
             allSquares = allSquares :+ s;
           };
           case 'x'  => {
-            if(y%2 == 0){
-              println("sbs neighbour")
+            if(y%2 != 0){
               val neighbour = (((x-2)/4,(y-2)/2),((x+2)/4,(y-2)/2))
               neighbours = neighbours :+ neighbour;
-              println(neighbour);
             }else{
-              println("top neighbour")
               val neighbour = ((x/4,((y-1)/2)),(x/4,(y-3)/2));
               neighbours = neighbours :+ neighbour;
-              println(neighbour)
             }
           };
           case ' ' =>;
           case _ => {
-            matrix((y-2)/2)(x/4) = l(x).asDigit
-            val s = new Square(x/4+1,(y-2)/2+1, values = List(l(x).asDigit), solved = true, neighbour = dn);
+            val s = new Square(x/4+1,(y-1)/2+1, values = List(l(x).asDigit), solved = true);
             allSquares = allSquares :+ s;
           };
         }
@@ -54,7 +56,7 @@ class IO {
     }
 
     def getSquareXY(x:Int, y:Int):Square = {
-      if(x > 4 || y > 4 || x ==0 || y ==0) return null
+      if(x > XL || y > XL || x ==0 || y ==0) return null
       val s = allSquares.filter(_.x==x).filter(_.y==y)(0);
       return s;
     }
@@ -91,18 +93,17 @@ class IO {
 
     allSquares = Solver.SolveSquare(allSquares,XL);
 
-    def printSolution() = {
-      var output:String = ""
-      for(y<-List(1,2,3,4)){
-        for(x<- List(1,2,3,4)){
-          var s = getSquareXY(x,y);
-          if(s.values.length == 1) output += s.values(0) + "|"
-          else {output +=   "x|"}
+    def printSolution():String = {
+      var output:String = "puzzle " + XL + "x" + XL +"\n";
+      for(y<-List.range(1,XL+1)){
+        for(x<- List.range(1,XL+1)){
+          output+= getSquareXY(x,y).values(0) + " ";
         }
         output+="\n"
       }
-      print(output)
+      return output;
     }
-    printSolution();
+
+    return printSolution();
   }
 }
