@@ -1,4 +1,4 @@
-puzzles 1
+puzzles 2
 size 4x4
 1   _ x _   _
     x   x    
@@ -15,5 +15,5 @@ x       x
 _ x _   _ x _   _
             x   x
 _   5   _   _   _
-        x   x     
+        x   x    
 _   _ x _ x _ x 4

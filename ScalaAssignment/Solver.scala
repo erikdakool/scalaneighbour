@@ -6,37 +6,59 @@ object Solver {
       Xl = x;
 
     while(allSquare.exists(s=>(!s.solved))) {
-      for (x <- List(1,2,3,4)){
-        for(y <-List(1,2,3,4)){
+      for (x <- List.range(1,Xl+1)){
+        for(y <-List.range(1,Xl+1)){
           val s = getSquareXY(x,y);
             for(n<-s.neighbour){
               if(!n._2.solved){
-                println(s.x + " " + s.y + "values " + s.values + " is setting at " + n._2.x + " " + n._2.y)
-                SolveSquare(s.values(0),n._2,n._1)
+/*                println("=============")
+                println(s.x + " " + s.y + "values " + s.values + " is setting at " + n._2.x + " " + n._2.y + "   nei" + getNeighbourPossibleValues(s.values) + "   nnei" + getNotNeighbourPossibleValues((s.values)))
+                println("=============") */
+                SolveSquare(s.values,n._2,n._1)
               };
             }
         }
-        println("=============")
-        println("loop complete")
-        println("=============")
       }
+      println("=============")
+      println("loop complete")
+      println("=============")
+      printSolution();
     }
     return allSquare;
   }
 
-  def SolveSquare(i:Int,s:Square,t:Int): Unit ={
+  def printSolution() = {
+    var output:String = ""
+    for (y <- List.range(1,Xl+1)){
+      for(x <-List.range(1,Xl+1)){
+        val s = getSquareXY(x,y);
+        if(s.values.length == 1) output += s.values(0) + "|"
+        else {output +=   "x|"}
+      }
+      output+="\n"
+    }
+    print(output)
+  }
+
+  def SolveSquare(i:List[Int],s:Square,t:Int): Unit ={
     if(!s.solved){
-      removeValues(s.x,s.y,getValuesFromY(s.y));
+      val l = getValuesFromY(s.y);
+      if(l.nonEmpty){
+        removeValues(s.x,s.y,l);
+      }
     }
     if(!s.solved){
-      removeValues(s.x,s.y,getValuesFromX(s.x));
+      val l = getValuesFromX(s.x);
+      if(l.nonEmpty){
+        removeValues(s.x,s.y,l);
+      }
     }
 
     if(!s.solved) {
       if(t==1){
-          setValues(s.x,s.y,getNotNeighbourPossibleValues(i));
+        setValues(s.x,s.y,getNotNeighbourPossibleValues(i));
       }else if (t==2){
-          setValues(s.x,s.y,getNeighbourPossibleValues(List(i)));
+        setValues(s.x,s.y,getNeighbourPossibleValues(i));
       }
     }
   }
@@ -52,7 +74,7 @@ object Solver {
     allSquare = allSquare.filter(_!=s);
     s = s.removeValues(sol);
     allSquare = allSquare :+s;
-    println("Removed values " +sol + " at " + x + " " +y)
+    //println("Removed values " +sol + " at " + x + " " +y)
   }
 
   def setValues(x:Int,y:Int,sol:List[Int]):Unit={
@@ -60,7 +82,6 @@ object Solver {
     allSquare = allSquare.filter(_!=s);
     s = s.setValues(sol);
     allSquare = allSquare :+s;
-    println("Set values " + sol + " at " + x + " " +y)
   }
 
   def getNeighbourPossibleValues(s:List[Int]):List[Int] = {
@@ -83,9 +104,33 @@ object Solver {
     //}
   }
 
-  def getNotNeighbourPossibleValues(s:Int):List[Int] = {
-    val n = List(s-1,s,s+1);
-    proofValue(List.range(1,Xl+1).filterNot(n.contains(_)));
+  def getNotNeighbourPossibleValues(s: List[Int]): List[Int] = {
+    s.size match {
+      case 1 => {
+        val n = List(s.head - 1, s.head, s.head + 1);
+        proofValue(List.range(1, Xl + 1).filterNot(n.contains(_)));
+      }
+      case 2 => {
+        if (s.head == s.last - 1 || s.head == s.last + 1) {
+          List.range(1,Xl+1).filter(_!=s.head).filter(_!=s.last);
+        }
+        else if (s.head == s.last - 2 || s.head == s.last + 2) {
+          List.range(1,Xl+1).filter(_!=(s.head + s.last)/2)
+        }
+        else {
+          return List[Int]()
+        }
+      }
+      case 3 => {
+        if ((s.head == s(1) + 1 && s.last == s(1) - 1) || (s.head == s(1) - 1 && s.last == s(1) + 1)) {
+          List.range(1,Xl+1).filter(_ != s(1))
+        }
+        else {
+          List[Int]()
+        }
+      }
+      case _ => return List[Int]()
+    }
   }
 
   def proofValue(l:List[Int]):List[Int] = {

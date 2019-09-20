@@ -1,4 +1,4 @@
-class Square(val x:Int,val y:Int, val values:List[Int] = List(1,2,3,4), val solved:Boolean = false,val neighbour:List[(Int,Square)]=List[(Int,Square)]())
+class Square(val x:Int,val y:Int, val values:List[Int], val solved:Boolean = false,val neighbour:List[(Int,Square)]=List[(Int,Square)]())
 {
   def setNeighbour(in:(Int,Square)):Square = {
     val neighbour = this.neighbour :+ in;
@@ -15,7 +15,7 @@ class Square(val x:Int,val y:Int, val values:List[Int] = List(1,2,3,4), val solv
     if(s.length ==1){
       return new Square(x=this.x,y =this.y,values = s,solved =true,neighbour = this.neighbour);
     }else if (s.isEmpty){
-      return new Square(x=this.x,y =this.y,values = this.values,solved =true,neighbour = this.neighbour);
+      return this
     }else return new Square(x = this.x,y = this.y,values = s,solved = false,neighbour = this.neighbour);
   }
 
@@ -24,7 +24,7 @@ class Square(val x:Int,val y:Int, val values:List[Int] = List(1,2,3,4), val solv
     if(s.length ==1){
       return new Square(x=this.x,y =this.y,values = s,solved =true,neighbour = this.neighbour);
     }else if(s.isEmpty){
-      return new Square(x=this.x,y =this.y,values = this.values,solved =true,neighbour = this.neighbour);
+      return this;
     }else return new Square(x = this.x,y = this.y,values = s,solved = false,neighbour = this.neighbour);
   }
 

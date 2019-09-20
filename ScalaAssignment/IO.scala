@@ -2,22 +2,21 @@ import java.io._;
 import Solver.SolveSquare;
 
 class IO {
-  val inputdir = "src/Input/";
+  val inputdir = "ScalaAssignment/";
   import java.io.File;
 
   val dir = new File(inputdir);
   for(f<-dir.listFiles()){
     if(f.getName() == "puzzle_unsolved.txt"){
       val lines = scala.io.Source.fromFile(f).mkString.split("\n")
-      println(solveNextBoard(lines.takeRight(lines.length-1)))
+      println(lines(0) + "\n" + solveNextBoard(lines.takeRight(lines.length-1)))
     }
   }
 
   def solveNextBoard(s:Array[String]):String = {
     val XL = s(0).toCharArray()(5).asDigit;
     val solved = solveBoard(s.take(XL*2));
-    if(s.length > XL){
-      return solved + "\n" + solveNextBoard(s.takeRight(s.length-XL*2))
+    if(s.length > XL*2){      return solved + solveNextBoard(s.takeRight(s.length-XL*2))
     }else{
       return solved
     }
@@ -34,15 +33,15 @@ class IO {
       for(x<- 0 until XL*3+2 by 2){
         l(x) match{
           case '_' => {
-            val s = new Square(x/4+1,(y-1)/2+1);
+            val s = new Square(x/4+1,(y-1)/2+1,List.range(1,XL+1));
             allSquares = allSquares :+ s;
           };
           case 'x'  => {
             if(y%2 != 0){
-              val neighbour = (((x-2)/4,(y-2)/2),((x+2)/4,(y-2)/2))
+              val neighbour = (((x-2)/4,(y-1)/2),((x+2)/4,(y-1)/2))
               neighbours = neighbours :+ neighbour;
             }else{
-              val neighbour = ((x/4,((y-1)/2)),(x/4,(y-3)/2));
+              val neighbour = ((x/4,((y-1)/2)),(x/4,y/2));
               neighbours = neighbours :+ neighbour;
             }
           };
@@ -94,7 +93,7 @@ class IO {
     allSquares = Solver.SolveSquare(allSquares,XL);
 
     def printSolution():String = {
-      var output:String = "puzzle " + XL + "x" + XL +"\n";
+      var output:String = "size " + XL + "x" + XL +"\n";
       for(y<-List.range(1,XL+1)){
         for(x<- List.range(1,XL+1)){
           output+= getSquareXY(x,y).values(0) + " ";
