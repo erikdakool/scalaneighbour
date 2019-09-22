@@ -9,7 +9,12 @@ class IO {
   for(f<-dir.listFiles()){
     if(f.getName() == "puzzle_unsolved.txt"){
       val lines = scala.io.Source.fromFile(f).mkString.split("\n")
-      println(lines(0) + "\n" + solveNextBoard(lines.takeRight(lines.length-1)))
+      val output = lines(0) + "\n" + solveNextBoard(lines.takeRight(lines.length-1))
+      print(output);
+
+      val out = new PrintWriter(new File(inputdir+ "puzzle_solved.txt"),"UTF-8");
+      out.print(output);
+      out.close();
     }
   }
 
@@ -90,7 +95,7 @@ class IO {
       updateNeighbourXY(s2.x,s2.y,(2,s1));
     }
 
-    allSquares = Solver.SolveSquare(allSquares,XL);
+    allSquares = Solver.SolveBoard(allSquares,XL);
 
     def printSolution():String = {
       var output:String = "size " + XL + "x" + XL +"\n";
@@ -102,7 +107,6 @@ class IO {
       }
       return output;
     }
-
     printSolution();
   }
 }

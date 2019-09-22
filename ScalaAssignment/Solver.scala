@@ -1,29 +1,11 @@
 object Solver {
   var allSquare = List[Square]();
   var Xl = 0;
-  def SolveSquare(l:List[Square],x:Int): List[Square] ={
+  def SolveBoard(l:List[Square],x:Int): List[Square] ={
       allSquare = l;
       Xl = x;
 
-    while(allSquare.exists(s=>(!s.solved))) {
-      for (x <- List.range(1,Xl+1)){
-        for(y <-List.range(1,Xl+1)){
-          val s = getSquareXY(x,y);
-            for(n<-s.neighbour){
-              if(!n._2.solved){
-/*                println("=============")
-                println(s.x + " " + s.y + "values " + s.values + " is setting at " + n._2.x + " " + n._2.y + "   nei" + getNeighbourPossibleValues(s.values) + "   nnei" + getNotNeighbourPossibleValues((s.values)))
-                println("=============") */
-                SolveSquare(s.values,n._2,n._1)
-              };
-            }
-        }
-      }
-      println("=============")
-      println("loop complete")
-      println("=============")
-      printSolution();
-    }
+    SolveSquareBrute(getSquareXY(1,1))
     return allSquare;
   }
 
@@ -40,27 +22,85 @@ object Solver {
     print(output)
   }
 
-  def SolveSquare(i:List[Int],s:Square,t:Int): Unit ={
-    if(!s.solved){
-      val l = getValuesFromY(s.y);
-      if(l.nonEmpty){
-        removeValues(s.x,s.y,l);
-      }
-    }
-    if(!s.solved){
-      val l = getValuesFromX(s.x);
-      if(l.nonEmpty){
-        removeValues(s.x,s.y,l);
-      }
-    }
+  def GetPossibleValues(s:Square):List[Int] = {
+    val xv = getValuesFromX(s.x);
+    val yv = getValuesFromY(s.y);
 
-    if(!s.solved) {
-      if(t==1){
-        setValues(s.x,s.y,getNotNeighbourPossibleValues(i));
-      }else if (t==2){
-        setValues(s.x,s.y,getNeighbourPossibleValues(i));
-      }
+    GetValuesFrommAllNeighbours(s).filterNot(xv.contains(_)).filterNot(yv.contains(_));
+  }
+
+  def SolveSquare(s:Square):Boolean = {
+    val l = GetValuesFrommAllNeighbours(s);
+    if(l.isEmpty){
+      return false;
     }
+    setValues(s.x,s.y,l);
+    true;
+  }
+
+  def SolveSquareBrute(s:Square):Boolean = {
+    if(s.solved){
+      if(s.x == Xl && s.y == Xl){
+        return true;
+      }
+      SolveSquareBrute(GetNextSquare(s));
+    }
+    else{
+      val oldValues = s.values;
+      for(i<-oldValues){
+        if(s.x == 2 && s.y == 2 && getSquareXY(1,2).values(0) == 4){
+          ValidSquare(List(1),s);
+        }
+        if(ValidSquare(List(i),s)){
+          retValues(s.x,s.y,List(i));
+          if(s.x == Xl && s.y == Xl){
+            return true;
+          }
+          if(SolveSquareBrute(GetNextSquare(s))){
+            return true;
+          }
+        }
+      }
+      retValues(s.x,s.y,oldValues)
+      return false;
+    }
+  }
+
+  def GetNextSquare(s:Square):Square = {
+    if(s.x == Xl){
+      if(s.y == Xl){
+        return getSquareXY(1,1);
+      }else{
+        return getSquareXY(1,s.y+1)
+      }
+    }else{
+      return getSquareXY(s.x+1,s.y);
+    }
+  }
+
+  def GetValuesFrommAllNeighbours(s:Square):List[Int] ={
+    var l = List.range(1,Xl+1)
+    for (a<-s.neighbour) yield {
+      val values = GetPossibleValuesFromNeighbour(getSquareXY(a._2.x,a._2.y).values, a._1)
+      l = l.filter(values.contains(_))
+    }
+    return l;
+  }
+
+  def GetPossibleValuesFromNeighbour(values:List[Int],t:Int):List[Int] ={
+    if(t==1){
+      return getNotNeighbourPossibleValues(values);
+    }else if(t==2){
+      return getNeighbourPossibleValues(values);
+    }
+    return List.range(1,Xl+1)
+  }
+
+  def ValidSquare(l:List[Int],s:Square):Boolean = {
+    val xv = getValuesFromX(s.x);
+    val yv = getValuesFromY(s.y);
+    val nvalues = GetPossibleValues(s).filterNot(xv.contains(_)).filterNot(yv.contains(_));
+    l.forall(nvalues.contains)
   }
 
   def getSquareXY(x:Int, y:Int):Square = {
@@ -81,6 +121,13 @@ object Solver {
     var s = getSquareXY(x,y)
     allSquare = allSquare.filter(_!=s);
     s = s.setValues(sol);
+    allSquare = allSquare :+s;
+  }
+
+  def retValues(x:Int,y:Int,sol:List[Int]):Unit = {
+    var s = getSquareXY(x,y);
+    allSquare = allSquare.filter(_!=s);
+    s = s.retValues(sol);
     allSquare = allSquare :+s;
   }
 
@@ -118,7 +165,7 @@ object Solver {
           List.range(1,Xl+1).filter(_!=(s.head + s.last)/2)
         }
         else {
-          return List[Int]()
+          return List.range(1,Xl+1)
         }
       }
       case 3 => {
@@ -126,10 +173,10 @@ object Solver {
           List.range(1,Xl+1).filter(_ != s(1))
         }
         else {
-          List[Int]()
+          return List.range(1,Xl+1)
         }
       }
-      case _ => return List[Int]()
+      case _ => return List.range(1,Xl+1)
     }
   }
 

@@ -28,6 +28,14 @@ class Square(val x:Int,val y:Int, val values:List[Int], val solved:Boolean = fal
     }else return new Square(x = this.x,y = this.y,values = s,solved = false,neighbour = this.neighbour);
   }
 
+  def retValues(in:List[Int]):Square = {
+    if(in.length == 1){
+      return new Square(x = this.x,y=this.y,values = in, solved = true, neighbour= this.neighbour);
+    }else{
+      return new Square(x = this.x,y=this.y,values = in, solved = false, neighbour= this.neighbour);
+    }
+  }
+
   def getNeighbours():List[Square] = {
     neighbour.foldRight(List[Square]())(_._2::_);
   }
