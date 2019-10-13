@@ -117,7 +117,7 @@ class PIO {
         case 3=> {square.setX(false);square.setY(true)};
         case _=>{square.setX(false);square.setY(false)};
       }
-      board.addSquares(square);
+      board.addSquares(s.values(0))
     }
     board.build();
   }

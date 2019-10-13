@@ -563,28 +563,17 @@ public final class SchemaIn {
     int getX();
 
     /**
-     * <code>repeated .PSquare squares = 3;</code>
+     * <code>repeated int32 squares = 3;</code>
      */
-    java.util.List<SchemaIn.PSquare> 
-        getSquaresList();
+    java.util.List<java.lang.Integer> getSquaresList();
     /**
-     * <code>repeated .PSquare squares = 3;</code>
-     */
-    SchemaIn.PSquare getSquares(int index);
-    /**
-     * <code>repeated .PSquare squares = 3;</code>
+     * <code>repeated int32 squares = 3;</code>
      */
     int getSquaresCount();
     /**
-     * <code>repeated .PSquare squares = 3;</code>
+     * <code>repeated int32 squares = 3;</code>
      */
-    java.util.List<? extends SchemaIn.PSquareOrBuilder> 
-        getSquaresOrBuilderList();
-    /**
-     * <code>repeated .PSquare squares = 3;</code>
-     */
-    SchemaIn.PSquareOrBuilder getSquaresOrBuilder(
-        int index);
+    int getSquares(int index);
   }
   /**
    * Protobuf type {@code PBoard}
@@ -632,13 +621,25 @@ public final class SchemaIn {
               x_ = input.readInt32();
               break;
             }
-            case 26: {
+            case 24: {
               if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
-                squares_ = new java.util.ArrayList<SchemaIn.PSquare>();
+                squares_ = new java.util.ArrayList<java.lang.Integer>();
                 mutable_bitField0_ |= 0x00000002;
               }
-              squares_.add(
-                  input.readMessage(SchemaIn.PSquare.parser(), extensionRegistry));
+              squares_.add(input.readInt32());
+              break;
+            }
+            case 26: {
+              int length = input.readRawVarint32();
+              int limit = input.pushLimit(length);
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002) && input.getBytesUntilLimit() > 0) {
+                squares_ = new java.util.ArrayList<java.lang.Integer>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              while (input.getBytesUntilLimit() > 0) {
+                squares_.add(input.readInt32());
+              }
+              input.popLimit(limit);
               break;
             }
             default: {
@@ -687,39 +688,27 @@ public final class SchemaIn {
     }
 
     public static final int SQUARES_FIELD_NUMBER = 3;
-    private java.util.List<SchemaIn.PSquare> squares_;
+    private java.util.List<java.lang.Integer> squares_;
     /**
-     * <code>repeated .PSquare squares = 3;</code>
+     * <code>repeated int32 squares = 3;</code>
      */
-    public java.util.List<SchemaIn.PSquare> getSquaresList() {
+    public java.util.List<java.lang.Integer>
+        getSquaresList() {
       return squares_;
     }
     /**
-     * <code>repeated .PSquare squares = 3;</code>
-     */
-    public java.util.List<? extends SchemaIn.PSquareOrBuilder> 
-        getSquaresOrBuilderList() {
-      return squares_;
-    }
-    /**
-     * <code>repeated .PSquare squares = 3;</code>
+     * <code>repeated int32 squares = 3;</code>
      */
     public int getSquaresCount() {
       return squares_.size();
     }
     /**
-     * <code>repeated .PSquare squares = 3;</code>
+     * <code>repeated int32 squares = 3;</code>
      */
-    public SchemaIn.PSquare getSquares(int index) {
+    public int getSquares(int index) {
       return squares_.get(index);
     }
-    /**
-     * <code>repeated .PSquare squares = 3;</code>
-     */
-    public SchemaIn.PSquareOrBuilder getSquaresOrBuilder(
-        int index) {
-      return squares_.get(index);
-    }
+    private int squaresMemoizedSerializedSize = -1;
 
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
@@ -735,11 +724,16 @@ public final class SchemaIn {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      getSerializedSize();
       if (x_ != 0) {
         output.writeInt32(2, x_);
       }
+      if (getSquaresList().size() > 0) {
+        output.writeUInt32NoTag(26);
+        output.writeUInt32NoTag(squaresMemoizedSerializedSize);
+      }
       for (int i = 0; i < squares_.size(); i++) {
-        output.writeMessage(3, squares_.get(i));
+        output.writeInt32NoTag(squares_.get(i));
       }
       unknownFields.writeTo(output);
     }
@@ -754,9 +748,19 @@ public final class SchemaIn {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(2, x_);
       }
-      for (int i = 0; i < squares_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, squares_.get(i));
+      {
+        int dataSize = 0;
+        for (int i = 0; i < squares_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeInt32SizeNoTag(squares_.get(i));
+        }
+        size += dataSize;
+        if (!getSquaresList().isEmpty()) {
+          size += 1;
+          size += com.google.protobuf.CodedOutputStream
+              .computeInt32SizeNoTag(dataSize);
+        }
+        squaresMemoizedSerializedSize = dataSize;
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -923,7 +927,6 @@ public final class SchemaIn {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
-          getSquaresFieldBuilder();
         }
       }
       @java.lang.Override
@@ -931,12 +934,8 @@ public final class SchemaIn {
         super.clear();
         x_ = 0;
 
-        if (squaresBuilder_ == null) {
-          squares_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000002);
-        } else {
-          squaresBuilder_.clear();
-        }
+        squares_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
@@ -966,15 +965,11 @@ public final class SchemaIn {
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         result.x_ = x_;
-        if (squaresBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) == 0x00000002)) {
-            squares_ = java.util.Collections.unmodifiableList(squares_);
-            bitField0_ = (bitField0_ & ~0x00000002);
-          }
-          result.squares_ = squares_;
-        } else {
-          result.squares_ = squaresBuilder_.build();
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          squares_ = java.util.Collections.unmodifiableList(squares_);
+          bitField0_ = (bitField0_ & ~0x00000002);
         }
+        result.squares_ = squares_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1027,31 +1022,15 @@ public final class SchemaIn {
         if (other.getX() != 0) {
           setX(other.getX());
         }
-        if (squaresBuilder_ == null) {
-          if (!other.squares_.isEmpty()) {
-            if (squares_.isEmpty()) {
-              squares_ = other.squares_;
-              bitField0_ = (bitField0_ & ~0x00000002);
-            } else {
-              ensureSquaresIsMutable();
-              squares_.addAll(other.squares_);
-            }
-            onChanged();
+        if (!other.squares_.isEmpty()) {
+          if (squares_.isEmpty()) {
+            squares_ = other.squares_;
+            bitField0_ = (bitField0_ & ~0x00000002);
+          } else {
+            ensureSquaresIsMutable();
+            squares_.addAll(other.squares_);
           }
-        } else {
-          if (!other.squares_.isEmpty()) {
-            if (squaresBuilder_.isEmpty()) {
-              squaresBuilder_.dispose();
-              squaresBuilder_ = null;
-              squares_ = other.squares_;
-              bitField0_ = (bitField0_ & ~0x00000002);
-              squaresBuilder_ = 
-                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getSquaresFieldBuilder() : null;
-            } else {
-              squaresBuilder_.addAllMessages(other.squares_);
-            }
-          }
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1109,244 +1088,70 @@ public final class SchemaIn {
         return this;
       }
 
-      private java.util.List<SchemaIn.PSquare> squares_ =
-        java.util.Collections.emptyList();
+      private java.util.List<java.lang.Integer> squares_ = java.util.Collections.emptyList();
       private void ensureSquaresIsMutable() {
         if (!((bitField0_ & 0x00000002) == 0x00000002)) {
-          squares_ = new java.util.ArrayList<SchemaIn.PSquare>(squares_);
+          squares_ = new java.util.ArrayList<java.lang.Integer>(squares_);
           bitField0_ |= 0x00000002;
          }
       }
-
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          SchemaIn.PSquare, SchemaIn.PSquare.Builder, SchemaIn.PSquareOrBuilder> squaresBuilder_;
-
       /**
-       * <code>repeated .PSquare squares = 3;</code>
+       * <code>repeated int32 squares = 3;</code>
        */
-      public java.util.List<SchemaIn.PSquare> getSquaresList() {
-        if (squaresBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(squares_);
-        } else {
-          return squaresBuilder_.getMessageList();
-        }
+      public java.util.List<java.lang.Integer>
+          getSquaresList() {
+        return java.util.Collections.unmodifiableList(squares_);
       }
       /**
-       * <code>repeated .PSquare squares = 3;</code>
+       * <code>repeated int32 squares = 3;</code>
        */
       public int getSquaresCount() {
-        if (squaresBuilder_ == null) {
-          return squares_.size();
-        } else {
-          return squaresBuilder_.getCount();
-        }
+        return squares_.size();
       }
       /**
-       * <code>repeated .PSquare squares = 3;</code>
+       * <code>repeated int32 squares = 3;</code>
        */
-      public SchemaIn.PSquare getSquares(int index) {
-        if (squaresBuilder_ == null) {
-          return squares_.get(index);
-        } else {
-          return squaresBuilder_.getMessage(index);
-        }
+      public int getSquares(int index) {
+        return squares_.get(index);
       }
       /**
-       * <code>repeated .PSquare squares = 3;</code>
+       * <code>repeated int32 squares = 3;</code>
        */
       public Builder setSquares(
-          int index, SchemaIn.PSquare value) {
-        if (squaresBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureSquaresIsMutable();
-          squares_.set(index, value);
-          onChanged();
-        } else {
-          squaresBuilder_.setMessage(index, value);
-        }
+          int index, int value) {
+        ensureSquaresIsMutable();
+        squares_.set(index, value);
+        onChanged();
         return this;
       }
       /**
-       * <code>repeated .PSquare squares = 3;</code>
+       * <code>repeated int32 squares = 3;</code>
        */
-      public Builder setSquares(
-          int index, SchemaIn.PSquare.Builder builderForValue) {
-        if (squaresBuilder_ == null) {
-          ensureSquaresIsMutable();
-          squares_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          squaresBuilder_.setMessage(index, builderForValue.build());
-        }
+      public Builder addSquares(int value) {
+        ensureSquaresIsMutable();
+        squares_.add(value);
+        onChanged();
         return this;
       }
       /**
-       * <code>repeated .PSquare squares = 3;</code>
-       */
-      public Builder addSquares(SchemaIn.PSquare value) {
-        if (squaresBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureSquaresIsMutable();
-          squares_.add(value);
-          onChanged();
-        } else {
-          squaresBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .PSquare squares = 3;</code>
-       */
-      public Builder addSquares(
-          int index, SchemaIn.PSquare value) {
-        if (squaresBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureSquaresIsMutable();
-          squares_.add(index, value);
-          onChanged();
-        } else {
-          squaresBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .PSquare squares = 3;</code>
-       */
-      public Builder addSquares(
-          SchemaIn.PSquare.Builder builderForValue) {
-        if (squaresBuilder_ == null) {
-          ensureSquaresIsMutable();
-          squares_.add(builderForValue.build());
-          onChanged();
-        } else {
-          squaresBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .PSquare squares = 3;</code>
-       */
-      public Builder addSquares(
-          int index, SchemaIn.PSquare.Builder builderForValue) {
-        if (squaresBuilder_ == null) {
-          ensureSquaresIsMutable();
-          squares_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          squaresBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .PSquare squares = 3;</code>
+       * <code>repeated int32 squares = 3;</code>
        */
       public Builder addAllSquares(
-          java.lang.Iterable<? extends SchemaIn.PSquare> values) {
-        if (squaresBuilder_ == null) {
-          ensureSquaresIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, squares_);
-          onChanged();
-        } else {
-          squaresBuilder_.addAllMessages(values);
-        }
+          java.lang.Iterable<? extends java.lang.Integer> values) {
+        ensureSquaresIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, squares_);
+        onChanged();
         return this;
       }
       /**
-       * <code>repeated .PSquare squares = 3;</code>
+       * <code>repeated int32 squares = 3;</code>
        */
       public Builder clearSquares() {
-        if (squaresBuilder_ == null) {
-          squares_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000002);
-          onChanged();
-        } else {
-          squaresBuilder_.clear();
-        }
+        squares_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
         return this;
-      }
-      /**
-       * <code>repeated .PSquare squares = 3;</code>
-       */
-      public Builder removeSquares(int index) {
-        if (squaresBuilder_ == null) {
-          ensureSquaresIsMutable();
-          squares_.remove(index);
-          onChanged();
-        } else {
-          squaresBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .PSquare squares = 3;</code>
-       */
-      public SchemaIn.PSquare.Builder getSquaresBuilder(
-          int index) {
-        return getSquaresFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .PSquare squares = 3;</code>
-       */
-      public SchemaIn.PSquareOrBuilder getSquaresOrBuilder(
-          int index) {
-        if (squaresBuilder_ == null) {
-          return squares_.get(index);  } else {
-          return squaresBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .PSquare squares = 3;</code>
-       */
-      public java.util.List<? extends SchemaIn.PSquareOrBuilder> 
-           getSquaresOrBuilderList() {
-        if (squaresBuilder_ != null) {
-          return squaresBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(squares_);
-        }
-      }
-      /**
-       * <code>repeated .PSquare squares = 3;</code>
-       */
-      public SchemaIn.PSquare.Builder addSquaresBuilder() {
-        return getSquaresFieldBuilder().addBuilder(
-            SchemaIn.PSquare.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .PSquare squares = 3;</code>
-       */
-      public SchemaIn.PSquare.Builder addSquaresBuilder(
-          int index) {
-        return getSquaresFieldBuilder().addBuilder(
-            index, SchemaIn.PSquare.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .PSquare squares = 3;</code>
-       */
-      public java.util.List<SchemaIn.PSquare.Builder> 
-           getSquaresBuilderList() {
-        return getSquaresFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          SchemaIn.PSquare, SchemaIn.PSquare.Builder, SchemaIn.PSquareOrBuilder> 
-          getSquaresFieldBuilder() {
-        if (squaresBuilder_ == null) {
-          squaresBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              SchemaIn.PSquare, SchemaIn.PSquare.Builder, SchemaIn.PSquareOrBuilder>(
-                  squares_,
-                  ((bitField0_ & 0x00000002) == 0x00000002),
-                  getParentForChildren(),
-                  isClean());
-          squares_ = null;
-        }
-        return squaresBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -2274,9 +2079,9 @@ public final class SchemaIn {
   static {
     java.lang.String[] descriptorData = {
       "\n\017schema_in.proto\"\037\n\007PSquare\022\t\n\001x\030\001 \001(\010\022" +
-      "\t\n\001y\030\006 \001(\010\".\n\006PBoard\022\t\n\001x\030\002 \001(\005\022\031\n\007squar" +
-      "es\030\003 \003(\0132\010.PSquare\"1\n\007PBoards\022\r\n\005Title\030\004" +
-      " \001(\005\022\027\n\006boards\030\005 \003(\0132\007.PBoardb\006proto3"
+      "\t\n\001y\030\006 \001(\010\"$\n\006PBoard\022\t\n\001x\030\002 \001(\005\022\017\n\007squar" +
+      "es\030\003 \003(\005\"1\n\007PBoards\022\r\n\005Title\030\004 \001(\005\022\027\n\006bo" +
+      "ards\030\005 \003(\0132\007.PBoardb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

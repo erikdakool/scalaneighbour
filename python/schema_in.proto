@@ -7,7 +7,7 @@ message PSquare {
 
 message PBoard {
   int32 x = 2;
-  repeated PSquare squares = 3;
+  repeated int32 squares = 3;
 }
 
 message PBoards{
