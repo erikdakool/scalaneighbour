@@ -1,7 +1,8 @@
 syntax = "proto3";
 
 message PSquare {
-  int32 x = 1;
+  bool x = 1;
+  bool y = 6;
 }
 
 message PBoard {
@@ -10,6 +11,6 @@ message PBoard {
 }
 
 message PBoards{
-  string Title = 4;
+  int32 Title = 4;
   repeated PBoard boards = 5;
 }

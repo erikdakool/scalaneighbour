@@ -1,4 +1,4 @@
 object PuzzleSolver extends App {
-  val io = new IO;
+  val io = new PIO;
 }
 

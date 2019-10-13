@@ -19,23 +19,30 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x0fschema_in.proto\"\x13\n\x06Square\x12\t\n\x01x\x18\x01 \x01(\x05\",\n\x05\x42oard\x12\t\n\x01x\x18\x02 \x01(\x05\x12\x18\n\x07squares\x18\x03 \x03(\x0b\x32\x07.Square\"/\n\x06\x42oards\x12\r\n\x05Title\x18\x04 \x01(\t\x12\x16\n\x06\x62oards\x18\x05 \x03(\x0b\x32\x06.Boardb\x06proto3')
+  serialized_pb=_b('\n\x0fschema_in.proto\"\x1f\n\x07PSquare\x12\t\n\x01x\x18\x01 \x01(\x08\x12\t\n\x01y\x18\x06 \x01(\x08\".\n\x06PBoard\x12\t\n\x01x\x18\x02 \x01(\x05\x12\x19\n\x07squares\x18\x03 \x03(\x0b\x32\x08.PSquare\"1\n\x07PBoards\x12\r\n\x05Title\x18\x04 \x01(\x05\x12\x17\n\x06\x62oards\x18\x05 \x03(\x0b\x32\x07.PBoardb\x06proto3')
 )
 
 
 
 
-_SQUARE = _descriptor.Descriptor(
-  name='Square',
-  full_name='Square',
+_PSQUARE = _descriptor.Descriptor(
+  name='PSquare',
+  full_name='PSquare',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='x', full_name='Square.x', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
+      name='x', full_name='PSquare.x', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='y', full_name='PSquare.y', index=1,
+      number=6, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -52,26 +59,26 @@ _SQUARE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=19,
-  serialized_end=38,
+  serialized_end=50,
 )
 
 
-_BOARD = _descriptor.Descriptor(
-  name='Board',
-  full_name='Board',
+_PBOARD = _descriptor.Descriptor(
+  name='PBoard',
+  full_name='PBoard',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='x', full_name='Board.x', index=0,
+      name='x', full_name='PBoard.x', index=0,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='squares', full_name='Board.squares', index=1,
+      name='squares', full_name='PBoard.squares', index=1,
       number=3, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -89,27 +96,27 @@ _BOARD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=40,
-  serialized_end=84,
+  serialized_start=52,
+  serialized_end=98,
 )
 
 
-_BOARDS = _descriptor.Descriptor(
-  name='Boards',
-  full_name='Boards',
+_PBOARDS = _descriptor.Descriptor(
+  name='PBoards',
+  full_name='PBoards',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='Title', full_name='Boards.Title', index=0,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='Title', full_name='PBoards.Title', index=0,
+      number=4, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='boards', full_name='Boards.boards', index=1,
+      name='boards', full_name='PBoards.boards', index=1,
       number=5, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -127,37 +134,37 @@ _BOARDS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=86,
-  serialized_end=133,
+  serialized_start=100,
+  serialized_end=149,
 )
 
-_BOARD.fields_by_name['squares'].message_type = _SQUARE
-_BOARDS.fields_by_name['boards'].message_type = _BOARD
-DESCRIPTOR.message_types_by_name['Square'] = _SQUARE
-DESCRIPTOR.message_types_by_name['Board'] = _BOARD
-DESCRIPTOR.message_types_by_name['Boards'] = _BOARDS
+_PBOARD.fields_by_name['squares'].message_type = _PSQUARE
+_PBOARDS.fields_by_name['boards'].message_type = _PBOARD
+DESCRIPTOR.message_types_by_name['PSquare'] = _PSQUARE
+DESCRIPTOR.message_types_by_name['PBoard'] = _PBOARD
+DESCRIPTOR.message_types_by_name['PBoards'] = _PBOARDS
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-Square = _reflection.GeneratedProtocolMessageType('Square', (_message.Message,), dict(
-  DESCRIPTOR = _SQUARE,
+PSquare = _reflection.GeneratedProtocolMessageType('PSquare', (_message.Message,), dict(
+  DESCRIPTOR = _PSQUARE,
   __module__ = 'schema_in_pb2'
-  # @@protoc_insertion_point(class_scope:Square)
+  # @@protoc_insertion_point(class_scope:PSquare)
   ))
-_sym_db.RegisterMessage(Square)
+_sym_db.RegisterMessage(PSquare)
 
-Board = _reflection.GeneratedProtocolMessageType('Board', (_message.Message,), dict(
-  DESCRIPTOR = _BOARD,
+PBoard = _reflection.GeneratedProtocolMessageType('PBoard', (_message.Message,), dict(
+  DESCRIPTOR = _PBOARD,
   __module__ = 'schema_in_pb2'
-  # @@protoc_insertion_point(class_scope:Board)
+  # @@protoc_insertion_point(class_scope:PBoard)
   ))
-_sym_db.RegisterMessage(Board)
+_sym_db.RegisterMessage(PBoard)
 
-Boards = _reflection.GeneratedProtocolMessageType('Boards', (_message.Message,), dict(
-  DESCRIPTOR = _BOARDS,
+PBoards = _reflection.GeneratedProtocolMessageType('PBoards', (_message.Message,), dict(
+  DESCRIPTOR = _PBOARDS,
   __module__ = 'schema_in_pb2'
-  # @@protoc_insertion_point(class_scope:Boards)
+  # @@protoc_insertion_point(class_scope:PBoards)
   ))
-_sym_db.RegisterMessage(Boards)
+_sym_db.RegisterMessage(PBoards)
 
 
 # @@protoc_insertion_point(module_scope)

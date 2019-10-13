@@ -17,9 +17,14 @@ public final class SchemaIn {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>int32 x = 1;</code>
+     * <code>bool x = 1;</code>
      */
-    int getX();
+    boolean getX();
+
+    /**
+     * <code>bool y = 6;</code>
+     */
+    boolean getY();
   }
   /**
    * Protobuf type {@code PSquare}
@@ -34,7 +39,8 @@ public final class SchemaIn {
       super(builder);
     }
     private PSquare() {
-      x_ = 0;
+      x_ = false;
+      y_ = false;
     }
 
     @java.lang.Override
@@ -63,7 +69,12 @@ public final class SchemaIn {
               break;
             case 8: {
 
-              x_ = input.readInt32();
+              x_ = input.readBool();
+              break;
+            }
+            case 48: {
+
+              y_ = input.readBool();
               break;
             }
             default: {
@@ -99,12 +110,21 @@ public final class SchemaIn {
     }
 
     public static final int X_FIELD_NUMBER = 1;
-    private int x_;
+    private boolean x_;
     /**
-     * <code>int32 x = 1;</code>
+     * <code>bool x = 1;</code>
      */
-    public int getX() {
+    public boolean getX() {
       return x_;
+    }
+
+    public static final int Y_FIELD_NUMBER = 6;
+    private boolean y_;
+    /**
+     * <code>bool y = 6;</code>
+     */
+    public boolean getY() {
+      return y_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -121,8 +141,11 @@ public final class SchemaIn {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (x_ != 0) {
-        output.writeInt32(1, x_);
+      if (x_ != false) {
+        output.writeBool(1, x_);
+      }
+      if (y_ != false) {
+        output.writeBool(6, y_);
       }
       unknownFields.writeTo(output);
     }
@@ -133,9 +156,13 @@ public final class SchemaIn {
       if (size != -1) return size;
 
       size = 0;
-      if (x_ != 0) {
+      if (x_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, x_);
+          .computeBoolSize(1, x_);
+      }
+      if (y_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(6, y_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -155,6 +182,8 @@ public final class SchemaIn {
       boolean result = true;
       result = result && (getX()
           == other.getX());
+      result = result && (getY()
+          == other.getY());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -167,7 +196,11 @@ public final class SchemaIn {
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + X_FIELD_NUMBER;
-      hash = (53 * hash) + getX();
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getX());
+      hash = (37 * hash) + Y_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getY());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -301,7 +334,9 @@ public final class SchemaIn {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        x_ = 0;
+        x_ = false;
+
+        y_ = false;
 
         return this;
       }
@@ -330,6 +365,7 @@ public final class SchemaIn {
       public SchemaIn.PSquare buildPartial() {
         SchemaIn.PSquare result = new SchemaIn.PSquare(this);
         result.x_ = x_;
+        result.y_ = y_;
         onBuilt();
         return result;
       }
@@ -378,8 +414,11 @@ public final class SchemaIn {
 
       public Builder mergeFrom(SchemaIn.PSquare other) {
         if (other == SchemaIn.PSquare.getDefaultInstance()) return this;
-        if (other.getX() != 0) {
+        if (other.getX() != false) {
           setX(other.getX());
+        }
+        if (other.getY() != false) {
+          setY(other.getY());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -410,28 +449,54 @@ public final class SchemaIn {
         return this;
       }
 
-      private int x_ ;
+      private boolean x_ ;
       /**
-       * <code>int32 x = 1;</code>
+       * <code>bool x = 1;</code>
        */
-      public int getX() {
+      public boolean getX() {
         return x_;
       }
       /**
-       * <code>int32 x = 1;</code>
+       * <code>bool x = 1;</code>
        */
-      public Builder setX(int value) {
+      public Builder setX(boolean value) {
         
         x_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int32 x = 1;</code>
+       * <code>bool x = 1;</code>
        */
       public Builder clearX() {
         
-        x_ = 0;
+        x_ = false;
+        onChanged();
+        return this;
+      }
+
+      private boolean y_ ;
+      /**
+       * <code>bool y = 6;</code>
+       */
+      public boolean getY() {
+        return y_;
+      }
+      /**
+       * <code>bool y = 6;</code>
+       */
+      public Builder setY(boolean value) {
+        
+        y_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool y = 6;</code>
+       */
+      public Builder clearY() {
+        
+        y_ = false;
         onChanged();
         return this;
       }
@@ -1341,14 +1406,9 @@ public final class SchemaIn {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string Title = 4;</code>
+     * <code>int32 Title = 4;</code>
      */
-    java.lang.String getTitle();
-    /**
-     * <code>string Title = 4;</code>
-     */
-    com.google.protobuf.ByteString
-        getTitleBytes();
+    int getTitle();
 
     /**
      * <code>repeated .PBoard boards = 5;</code>
@@ -1387,7 +1447,7 @@ public final class SchemaIn {
       super(builder);
     }
     private PBoards() {
-      title_ = "";
+      title_ = 0;
       boards_ = java.util.Collections.emptyList();
     }
 
@@ -1415,10 +1475,9 @@ public final class SchemaIn {
             case 0:
               done = true;
               break;
-            case 34: {
-              java.lang.String s = input.readStringRequireUtf8();
+            case 32: {
 
-              title_ = s;
+              title_ = input.readInt32();
               break;
             }
             case 42: {
@@ -1467,37 +1526,12 @@ public final class SchemaIn {
 
     private int bitField0_;
     public static final int TITLE_FIELD_NUMBER = 4;
-    private volatile java.lang.Object title_;
+    private int title_;
     /**
-     * <code>string Title = 4;</code>
+     * <code>int32 Title = 4;</code>
      */
-    public java.lang.String getTitle() {
-      java.lang.Object ref = title_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        title_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string Title = 4;</code>
-     */
-    public com.google.protobuf.ByteString
-        getTitleBytes() {
-      java.lang.Object ref = title_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        title_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public int getTitle() {
+      return title_;
     }
 
     public static final int BOARDS_FIELD_NUMBER = 5;
@@ -1549,8 +1583,8 @@ public final class SchemaIn {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getTitleBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, title_);
+      if (title_ != 0) {
+        output.writeInt32(4, title_);
       }
       for (int i = 0; i < boards_.size(); i++) {
         output.writeMessage(5, boards_.get(i));
@@ -1564,8 +1598,9 @@ public final class SchemaIn {
       if (size != -1) return size;
 
       size = 0;
-      if (!getTitleBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, title_);
+      if (title_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, title_);
       }
       for (int i = 0; i < boards_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
@@ -1587,8 +1622,8 @@ public final class SchemaIn {
       SchemaIn.PBoards other = (SchemaIn.PBoards) obj;
 
       boolean result = true;
-      result = result && getTitle()
-          .equals(other.getTitle());
+      result = result && (getTitle()
+          == other.getTitle());
       result = result && getBoardsList()
           .equals(other.getBoardsList());
       result = result && unknownFields.equals(other.unknownFields);
@@ -1603,7 +1638,7 @@ public final class SchemaIn {
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + TITLE_FIELD_NUMBER;
-      hash = (53 * hash) + getTitle().hashCode();
+      hash = (53 * hash) + getTitle();
       if (getBoardsCount() > 0) {
         hash = (37 * hash) + BOARDS_FIELD_NUMBER;
         hash = (53 * hash) + getBoardsList().hashCode();
@@ -1742,7 +1777,7 @@ public final class SchemaIn {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        title_ = "";
+        title_ = 0;
 
         if (boardsBuilder_ == null) {
           boards_ = java.util.Collections.emptyList();
@@ -1837,9 +1872,8 @@ public final class SchemaIn {
 
       public Builder mergeFrom(SchemaIn.PBoards other) {
         if (other == SchemaIn.PBoards.getDefaultInstance()) return this;
-        if (!other.getTitle().isEmpty()) {
-          title_ = other.title_;
-          onChanged();
+        if (other.getTitle() != 0) {
+          setTitle(other.getTitle());
         }
         if (boardsBuilder_ == null) {
           if (!other.boards_.isEmpty()) {
@@ -1897,71 +1931,28 @@ public final class SchemaIn {
       }
       private int bitField0_;
 
-      private java.lang.Object title_ = "";
+      private int title_ ;
       /**
-       * <code>string Title = 4;</code>
+       * <code>int32 Title = 4;</code>
        */
-      public java.lang.String getTitle() {
-        java.lang.Object ref = title_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          title_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public int getTitle() {
+        return title_;
       }
       /**
-       * <code>string Title = 4;</code>
+       * <code>int32 Title = 4;</code>
        */
-      public com.google.protobuf.ByteString
-          getTitleBytes() {
-        java.lang.Object ref = title_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          title_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string Title = 4;</code>
-       */
-      public Builder setTitle(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
+      public Builder setTitle(int value) {
+        
         title_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>string Title = 4;</code>
+       * <code>int32 Title = 4;</code>
        */
       public Builder clearTitle() {
         
-        title_ = getDefaultInstance().getTitle();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string Title = 4;</code>
-       */
-      public Builder setTitleBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        title_ = value;
+        title_ = 0;
         onChanged();
         return this;
       }
@@ -2282,10 +2273,10 @@ public final class SchemaIn {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\017schema_in.proto\"\024\n\007PSquare\022\t\n\001x\030\001 \001(\005\"" +
-      ".\n\006PBoard\022\t\n\001x\030\002 \001(\005\022\031\n\007squares\030\003 \003(\0132\010." +
-      "PSquare\"1\n\007PBoards\022\r\n\005Title\030\004 \001(\t\022\027\n\006boa" +
-      "rds\030\005 \003(\0132\007.PBoardb\006proto3"
+      "\n\017schema_in.proto\"\037\n\007PSquare\022\t\n\001x\030\001 \001(\010\022" +
+      "\t\n\001y\030\006 \001(\010\".\n\006PBoard\022\t\n\001x\030\002 \001(\005\022\031\n\007squar" +
+      "es\030\003 \003(\0132\010.PSquare\"1\n\007PBoards\022\r\n\005Title\030\004" +
+      " \001(\005\022\027\n\006boards\030\005 \003(\0132\007.PBoardb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2304,7 +2295,7 @@ public final class SchemaIn {
     internal_static_PSquare_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_PSquare_descriptor,
-        new java.lang.String[] { "X", });
+        new java.lang.String[] { "X", "Y", });
     internal_static_PBoard_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_PBoard_fieldAccessorTable = new
