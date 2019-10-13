@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+message PSquare {
+  int32 x = 1;
+}
+
+message PBoard {
+  int32 x = 2;
+  repeated PSquare squares = 3;
+}
+
+message PBoards{
+  string Title = 4;
+  repeated PBoard boards = 5;
+}
