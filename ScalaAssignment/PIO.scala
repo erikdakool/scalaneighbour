@@ -19,8 +19,10 @@ class PIO {
       boards.build().writeTo(out)
 
       var in = new FileInputStream("ScalaAssignment/sample.bin");
-      var inboard = PBoard.parseFrom(in);
-      println(inboard);
+      var inboard = PBoards.parseFrom(in);
+      //println(inboard);
+      var inboards = inboard.getBoardsList;
+      inboards.forEach(println(_));
     }
   }
 
@@ -109,16 +111,24 @@ class PIO {
     //Create board square
     var board = PBoard.newBuilder();
     board.setX(XL);
+    var digitarray = "";
+    var count = 0;
     for(s<-allSquares){
-      var square = PSquare.newBuilder();
-      s.values(0) match {
-        case 1 => {square.setX(true);square.setY(false)};
-        case 2=> {square.setX(true);square.setY(true)};
-        case 3=> {square.setX(false);square.setY(true)};
-        case _=>{square.setX(false);square.setY(false)};
+      //One int per value
+      //board.addSquares(s.values(0))
+
+      //Int digit array
+      count += 1;
+      if(count > 8){
+        board.addSquares(digitarray.toInt);
+        count = 0;
+        digitarray = s.values(0).toString;
+      }else{
+        digitarray += s.values(0).toString;
       }
-      board.addSquares(s.values(0))
     }
+    if(digitarray!= "")
+      board.addSquares(digitarray.toInt);
     board.build();
   }
 }
