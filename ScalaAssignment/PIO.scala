@@ -1,6 +1,5 @@
 import java.io._;
 import Solver.SolveSquare;
-import SchemaIn.PSquare;
 import SchemaIn.PBoard;
 import SchemaIn.PBoards;
 
@@ -8,7 +7,6 @@ class PIO {
   val inputdir = "ScalaAssignment/";
   import java.io.File;
   var boards = SchemaIn.PBoards.newBuilder();
-  boards.setTitle(2);
 
   val dir = new File(inputdir);
   for(f<-dir.listFiles()){
@@ -20,7 +18,7 @@ class PIO {
 
       var in = new FileInputStream("ScalaAssignment/sample.bin");
       var inboard = PBoards.parseFrom(in);
-      //println(inboard);
+      println(inboard);
       var inboards = inboard.getBoardsList;
       inboards.forEach(println(_));
     }
@@ -113,18 +111,21 @@ class PIO {
     board.setX(XL);
     var digitarray = "";
     var count = 0;
-    for(s<-allSquares){
-      //One int per value
-      //board.addSquares(s.values(0))
+    for(y<-List.range(1,XL+1)){
+      for(x<-List.range(1,XL+1)){
+        //One int per value
+        //board.addSquares(s.values(0))
 
-      //Int digit array
-      count += 1;
-      if(count > 8){
-        board.addSquares(digitarray.toInt);
-        count = 0;
-        digitarray = s.values(0).toString;
-      }else{
-        digitarray += s.values(0).toString;
+        //Int digit array
+        var s = getSquareXY(x,y);
+        count += 1;
+        if(count > 8){
+          board.addSquares(digitarray.toInt);
+          count = 1;
+          digitarray = s.values(0).toString;
+        }else{
+          digitarray += s.values(0).toString;
+        }
       }
     }
     if(digitarray!= "")
