@@ -17,7 +17,7 @@ class PIO {
       boards.build().writeTo(out)
 
       var in = new FileInputStream("ScalaAssignment/sample.bin");
-      var inboard = PBoards.parseFrom(in);
+      var inboard = SchemaIn.PBoards.parseFrom(in);
       println(inboard);
       var inboards = inboard.getBoardsList;
       inboards.forEach(println(_));
@@ -107,7 +107,7 @@ class PIO {
 
 
     //Create board square
-    var board = PBoard.newBuilder();
+    var board = SchemaIn.PBoard.newBuilder();
     board.setX(XL);
     var digitarray = "";
     var count = 0;
