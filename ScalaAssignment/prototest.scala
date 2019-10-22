@@ -1,7 +1,7 @@
 import java.io._;
 import Solver.SolveSquare;
-import SchemaIn.PBoard;
-import SchemaIn.PBoards;
+import schema_out.PBoard;
+import schema_out.PBoards;
 
 object prototest extends App {
   var board4 = PBoard.newBuilder();

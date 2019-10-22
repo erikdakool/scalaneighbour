@@ -1,7 +1,7 @@
 import java.io._;
 import Solver.SolveSquare;
-import SchemaIn.PBoard;
-import SchemaIn.PBoards;
+import schema_out.PBoard;
+import schema_out.PBoards;
 
 class IO {
   val inputdir = "ScalaAssignment/";

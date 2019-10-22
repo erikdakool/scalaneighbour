@@ -1,12 +1,12 @@
 import java.io._;
 import Solver.SolveSquare;
-import SchemaIn.PBoard;
-import SchemaIn.PBoards;
+import schema_out.PBoard;
+import schema_out.PBoards;
 
 class PIO {
   val inputdir = "ScalaAssignment/";
   import java.io.File;
-  var boards = SchemaIn.PBoards.newBuilder();
+  var boards = schema_out.PBoards.newBuilder();
 
   val dir = new File(inputdir);
   for(f<-dir.listFiles()){
@@ -17,7 +17,7 @@ class PIO {
       boards.build().writeTo(out)
 
       var in = new FileInputStream("ScalaAssignment/sample.bin");
-      var inboard = SchemaIn.PBoards.parseFrom(in);
+      var inboard = schema_out.PBoards.parseFrom(in);
       println(inboard);
       var inboards = inboard.getBoardsList;
       inboards.forEach(println(_));
@@ -107,7 +107,7 @@ class PIO {
 
 
     //Create board square
-    var board = SchemaIn.PBoard.newBuilder();
+    var board = schema_out.PBoard.newBuilder();
     board.setX(XL);
     var digitarray = "";
     var count = 0;

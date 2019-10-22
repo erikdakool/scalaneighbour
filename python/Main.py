@@ -1,4 +1,4 @@
-import schema_in_pb2 as proto
+import schema_out_pb2 as proto
 
 if __name__ == "__main__":
 
