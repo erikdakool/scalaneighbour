@@ -1,6 +1,5 @@
 import java.io._;
 import Solver.SolveSquare;
-import SchemaIn.PSquare;
 import SchemaIn.PBoard;
 import SchemaIn.PBoards;
 

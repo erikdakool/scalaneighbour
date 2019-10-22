@@ -6,6 +6,7 @@ if __name__ == "__main__":
     f = open("../ScalaAssignment/sample.bin", "rb")
     boards.ParseFromString(f.read())
     f.close()
+    print(boards)
 output = "puzzles " + str(len(boards.boards))
 for board in boards.boards:
     output += "\n" + "size " + str(board.x) + "x" + str(board.x) + "\n"
