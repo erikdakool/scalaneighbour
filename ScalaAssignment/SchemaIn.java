@@ -202,17 +202,9 @@ public final class SchemaIn {
        */
       Up(0),
       /**
-       * <code>Down = 1;</code>
+       * <code>Left = 1;</code>
        */
-      Down(1),
-      /**
-       * <code>Left = 2;</code>
-       */
-      Left(2),
-      /**
-       * <code>Right = 3;</code>
-       */
-      Right(3),
+      Left(1),
       UNRECOGNIZED(-1),
       ;
 
@@ -221,17 +213,9 @@ public final class SchemaIn {
        */
       public static final int Up_VALUE = 0;
       /**
-       * <code>Down = 1;</code>
+       * <code>Left = 1;</code>
        */
-      public static final int Down_VALUE = 1;
-      /**
-       * <code>Left = 2;</code>
-       */
-      public static final int Left_VALUE = 2;
-      /**
-       * <code>Right = 3;</code>
-       */
-      public static final int Right_VALUE = 3;
+      public static final int Left_VALUE = 1;
 
 
       public final int getNumber() {
@@ -259,9 +243,7 @@ public final class SchemaIn {
       public static Directions forNumber(int value) {
         switch (value) {
           case 0: return Up;
-          case 1: return Down;
-          case 2: return Left;
-          case 3: return Right;
+          case 1: return Left;
           default: return null;
         }
       }
@@ -2638,12 +2620,11 @@ public final class SchemaIn {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\017schema_in.proto\"u\n\007PSquare\022\r\n\005value\030\001 " +
+      "\n\017schema_in.proto\"`\n\007PSquare\022\r\n\005value\030\001 " +
       "\003(\005\022&\n\tneighbour\030\002 \003(\0162\023.PSquare.Directi" +
-      "ons\"3\n\nDirections\022\006\n\002Up\020\000\022\010\n\004Down\020\001\022\010\n\004L" +
-      "eft\020\002\022\t\n\005Right\020\003\"#\n\007PPuzzle\022\030\n\006square\030\001 " +
-      "\003(\0132\010.PSquare\"%\n\010PPuzzles\022\031\n\007puzzles\030\001 \003" +
-      "(\0132\010.PPuzzleb\006proto3"
+      "ons\"\036\n\nDirections\022\006\n\002Up\020\000\022\010\n\004Left\020\001\"#\n\007P" +
+      "Puzzle\022\030\n\006square\030\001 \003(\0132\010.PSquare\"%\n\010PPuz" +
+      "zles\022\031\n\007puzzles\030\001 \003(\0132\010.PPuzzleb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
