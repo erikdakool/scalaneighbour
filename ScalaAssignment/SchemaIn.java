@@ -61,12 +61,6 @@ public final class SchemaIn {
      * @return The enum numeric value on the wire of neighbour at the given index.
      */
     int getNeighbourValue(int index);
-
-    /**
-     * <code>bool solved = 3;</code>
-     * @return The solved.
-     */
-    boolean getSolved();
   }
   /**
    * Protobuf type {@code PSquare}
@@ -158,11 +152,6 @@ public final class SchemaIn {
                 neighbour_.add(rawValue);
               }
               input.popLimit(oldLimit);
-              break;
-            }
-            case 24: {
-
-              solved_ = input.readBool();
               break;
             }
             default: {
@@ -405,16 +394,6 @@ public final class SchemaIn {
     }
     private int neighbourMemoizedSerializedSize;
 
-    public static final int SOLVED_FIELD_NUMBER = 3;
-    private boolean solved_;
-    /**
-     * <code>bool solved = 3;</code>
-     * @return The solved.
-     */
-    public boolean getSolved() {
-      return solved_;
-    }
-
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -443,9 +422,6 @@ public final class SchemaIn {
       }
       for (int i = 0; i < neighbour_.size(); i++) {
         output.writeEnumNoTag(neighbour_.get(i));
-      }
-      if (solved_ != false) {
-        output.writeBool(3, solved_);
       }
       unknownFields.writeTo(output);
     }
@@ -482,10 +458,6 @@ public final class SchemaIn {
             .computeUInt32SizeNoTag(dataSize);
         }neighbourMemoizedSerializedSize = dataSize;
       }
-      if (solved_ != false) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(3, solved_);
-      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -504,8 +476,6 @@ public final class SchemaIn {
       if (!getValueList()
           .equals(other.getValueList())) return false;
       if (!neighbour_.equals(other.neighbour_)) return false;
-      if (getSolved()
-          != other.getSolved()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -525,9 +495,6 @@ public final class SchemaIn {
         hash = (37 * hash) + NEIGHBOUR_FIELD_NUMBER;
         hash = (53 * hash) + neighbour_.hashCode();
       }
-      hash = (37 * hash) + SOLVED_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getSolved());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -665,8 +632,6 @@ public final class SchemaIn {
         bitField0_ = (bitField0_ & ~0x00000001);
         neighbour_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000002);
-        solved_ = false;
-
         return this;
       }
 
@@ -704,7 +669,6 @@ public final class SchemaIn {
           bitField0_ = (bitField0_ & ~0x00000002);
         }
         result.neighbour_ = neighbour_;
-        result.solved_ = solved_;
         onBuilt();
         return result;
       }
@@ -772,9 +736,6 @@ public final class SchemaIn {
             neighbour_.addAll(other.neighbour_);
           }
           onChanged();
-        }
-        if (other.getSolved() != false) {
-          setSolved(other.getSolved());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1024,36 +985,6 @@ public final class SchemaIn {
         onChanged();
         return this;
       }
-
-      private boolean solved_ ;
-      /**
-       * <code>bool solved = 3;</code>
-       * @return The solved.
-       */
-      public boolean getSolved() {
-        return solved_;
-      }
-      /**
-       * <code>bool solved = 3;</code>
-       * @param value The solved to set.
-       * @return This builder for chaining.
-       */
-      public Builder setSolved(boolean value) {
-        
-        solved_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>bool solved = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearSolved() {
-        
-        solved_ = false;
-        onChanged();
-        return this;
-      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1107,820 +1038,32 @@ public final class SchemaIn {
 
   }
 
-  public interface PLineOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:PLine)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>repeated .PSquare elements = 1;</code>
-     */
-    java.util.List<SchemaIn.PSquare> 
-        getElementsList();
-    /**
-     * <code>repeated .PSquare elements = 1;</code>
-     */
-    SchemaIn.PSquare getElements(int index);
-    /**
-     * <code>repeated .PSquare elements = 1;</code>
-     */
-    int getElementsCount();
-    /**
-     * <code>repeated .PSquare elements = 1;</code>
-     */
-    java.util.List<? extends SchemaIn.PSquareOrBuilder> 
-        getElementsOrBuilderList();
-    /**
-     * <code>repeated .PSquare elements = 1;</code>
-     */
-    SchemaIn.PSquareOrBuilder getElementsOrBuilder(
-        int index);
-  }
-  /**
-   * Protobuf type {@code PLine}
-   */
-  public  static final class PLine extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:PLine)
-      PLineOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use PLine.newBuilder() to construct.
-    private PLine(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private PLine() {
-      elements_ = java.util.Collections.emptyList();
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new PLine();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private PLine(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                elements_ = new java.util.ArrayList<SchemaIn.PSquare>();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              elements_.add(
-                  input.readMessage(SchemaIn.PSquare.parser(), extensionRegistry));
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        if (((mutable_bitField0_ & 0x00000001) != 0)) {
-          elements_ = java.util.Collections.unmodifiableList(elements_);
-        }
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return SchemaIn.internal_static_PLine_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return SchemaIn.internal_static_PLine_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              SchemaIn.PLine.class, SchemaIn.PLine.Builder.class);
-    }
-
-    public static final int ELEMENTS_FIELD_NUMBER = 1;
-    private java.util.List<SchemaIn.PSquare> elements_;
-    /**
-     * <code>repeated .PSquare elements = 1;</code>
-     */
-    public java.util.List<SchemaIn.PSquare> getElementsList() {
-      return elements_;
-    }
-    /**
-     * <code>repeated .PSquare elements = 1;</code>
-     */
-    public java.util.List<? extends SchemaIn.PSquareOrBuilder> 
-        getElementsOrBuilderList() {
-      return elements_;
-    }
-    /**
-     * <code>repeated .PSquare elements = 1;</code>
-     */
-    public int getElementsCount() {
-      return elements_.size();
-    }
-    /**
-     * <code>repeated .PSquare elements = 1;</code>
-     */
-    public SchemaIn.PSquare getElements(int index) {
-      return elements_.get(index);
-    }
-    /**
-     * <code>repeated .PSquare elements = 1;</code>
-     */
-    public SchemaIn.PSquareOrBuilder getElementsOrBuilder(
-        int index) {
-      return elements_.get(index);
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      for (int i = 0; i < elements_.size(); i++) {
-        output.writeMessage(1, elements_.get(i));
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      for (int i = 0; i < elements_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, elements_.get(i));
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof SchemaIn.PLine)) {
-        return super.equals(obj);
-      }
-      SchemaIn.PLine other = (SchemaIn.PLine) obj;
-
-      if (!getElementsList()
-          .equals(other.getElementsList())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (getElementsCount() > 0) {
-        hash = (37 * hash) + ELEMENTS_FIELD_NUMBER;
-        hash = (53 * hash) + getElementsList().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static SchemaIn.PLine parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static SchemaIn.PLine parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static SchemaIn.PLine parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static SchemaIn.PLine parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static SchemaIn.PLine parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static SchemaIn.PLine parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static SchemaIn.PLine parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static SchemaIn.PLine parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static SchemaIn.PLine parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static SchemaIn.PLine parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static SchemaIn.PLine parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static SchemaIn.PLine parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(SchemaIn.PLine prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code PLine}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:PLine)
-        SchemaIn.PLineOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return SchemaIn.internal_static_PLine_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return SchemaIn.internal_static_PLine_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                SchemaIn.PLine.class, SchemaIn.PLine.Builder.class);
-      }
-
-      // Construct using SchemaIn.PLine.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-          getElementsFieldBuilder();
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        if (elementsBuilder_ == null) {
-          elements_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-        } else {
-          elementsBuilder_.clear();
-        }
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return SchemaIn.internal_static_PLine_descriptor;
-      }
-
-      @java.lang.Override
-      public SchemaIn.PLine getDefaultInstanceForType() {
-        return SchemaIn.PLine.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public SchemaIn.PLine build() {
-        SchemaIn.PLine result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public SchemaIn.PLine buildPartial() {
-        SchemaIn.PLine result = new SchemaIn.PLine(this);
-        int from_bitField0_ = bitField0_;
-        if (elementsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0)) {
-            elements_ = java.util.Collections.unmodifiableList(elements_);
-            bitField0_ = (bitField0_ & ~0x00000001);
-          }
-          result.elements_ = elements_;
-        } else {
-          result.elements_ = elementsBuilder_.build();
-        }
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof SchemaIn.PLine) {
-          return mergeFrom((SchemaIn.PLine)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(SchemaIn.PLine other) {
-        if (other == SchemaIn.PLine.getDefaultInstance()) return this;
-        if (elementsBuilder_ == null) {
-          if (!other.elements_.isEmpty()) {
-            if (elements_.isEmpty()) {
-              elements_ = other.elements_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-            } else {
-              ensureElementsIsMutable();
-              elements_.addAll(other.elements_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.elements_.isEmpty()) {
-            if (elementsBuilder_.isEmpty()) {
-              elementsBuilder_.dispose();
-              elementsBuilder_ = null;
-              elements_ = other.elements_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-              elementsBuilder_ = 
-                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getElementsFieldBuilder() : null;
-            } else {
-              elementsBuilder_.addAllMessages(other.elements_);
-            }
-          }
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        SchemaIn.PLine parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (SchemaIn.PLine) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      private java.util.List<SchemaIn.PSquare> elements_ =
-        java.util.Collections.emptyList();
-      private void ensureElementsIsMutable() {
-        if (!((bitField0_ & 0x00000001) != 0)) {
-          elements_ = new java.util.ArrayList<SchemaIn.PSquare>(elements_);
-          bitField0_ |= 0x00000001;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          SchemaIn.PSquare, SchemaIn.PSquare.Builder, SchemaIn.PSquareOrBuilder> elementsBuilder_;
-
-      /**
-       * <code>repeated .PSquare elements = 1;</code>
-       */
-      public java.util.List<SchemaIn.PSquare> getElementsList() {
-        if (elementsBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(elements_);
-        } else {
-          return elementsBuilder_.getMessageList();
-        }
-      }
-      /**
-       * <code>repeated .PSquare elements = 1;</code>
-       */
-      public int getElementsCount() {
-        if (elementsBuilder_ == null) {
-          return elements_.size();
-        } else {
-          return elementsBuilder_.getCount();
-        }
-      }
-      /**
-       * <code>repeated .PSquare elements = 1;</code>
-       */
-      public SchemaIn.PSquare getElements(int index) {
-        if (elementsBuilder_ == null) {
-          return elements_.get(index);
-        } else {
-          return elementsBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <code>repeated .PSquare elements = 1;</code>
-       */
-      public Builder setElements(
-          int index, SchemaIn.PSquare value) {
-        if (elementsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureElementsIsMutable();
-          elements_.set(index, value);
-          onChanged();
-        } else {
-          elementsBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .PSquare elements = 1;</code>
-       */
-      public Builder setElements(
-          int index, SchemaIn.PSquare.Builder builderForValue) {
-        if (elementsBuilder_ == null) {
-          ensureElementsIsMutable();
-          elements_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          elementsBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .PSquare elements = 1;</code>
-       */
-      public Builder addElements(SchemaIn.PSquare value) {
-        if (elementsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureElementsIsMutable();
-          elements_.add(value);
-          onChanged();
-        } else {
-          elementsBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .PSquare elements = 1;</code>
-       */
-      public Builder addElements(
-          int index, SchemaIn.PSquare value) {
-        if (elementsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureElementsIsMutable();
-          elements_.add(index, value);
-          onChanged();
-        } else {
-          elementsBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .PSquare elements = 1;</code>
-       */
-      public Builder addElements(
-          SchemaIn.PSquare.Builder builderForValue) {
-        if (elementsBuilder_ == null) {
-          ensureElementsIsMutable();
-          elements_.add(builderForValue.build());
-          onChanged();
-        } else {
-          elementsBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .PSquare elements = 1;</code>
-       */
-      public Builder addElements(
-          int index, SchemaIn.PSquare.Builder builderForValue) {
-        if (elementsBuilder_ == null) {
-          ensureElementsIsMutable();
-          elements_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          elementsBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .PSquare elements = 1;</code>
-       */
-      public Builder addAllElements(
-          java.lang.Iterable<? extends SchemaIn.PSquare> values) {
-        if (elementsBuilder_ == null) {
-          ensureElementsIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, elements_);
-          onChanged();
-        } else {
-          elementsBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .PSquare elements = 1;</code>
-       */
-      public Builder clearElements() {
-        if (elementsBuilder_ == null) {
-          elements_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-          onChanged();
-        } else {
-          elementsBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .PSquare elements = 1;</code>
-       */
-      public Builder removeElements(int index) {
-        if (elementsBuilder_ == null) {
-          ensureElementsIsMutable();
-          elements_.remove(index);
-          onChanged();
-        } else {
-          elementsBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .PSquare elements = 1;</code>
-       */
-      public SchemaIn.PSquare.Builder getElementsBuilder(
-          int index) {
-        return getElementsFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .PSquare elements = 1;</code>
-       */
-      public SchemaIn.PSquareOrBuilder getElementsOrBuilder(
-          int index) {
-        if (elementsBuilder_ == null) {
-          return elements_.get(index);  } else {
-          return elementsBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .PSquare elements = 1;</code>
-       */
-      public java.util.List<? extends SchemaIn.PSquareOrBuilder> 
-           getElementsOrBuilderList() {
-        if (elementsBuilder_ != null) {
-          return elementsBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(elements_);
-        }
-      }
-      /**
-       * <code>repeated .PSquare elements = 1;</code>
-       */
-      public SchemaIn.PSquare.Builder addElementsBuilder() {
-        return getElementsFieldBuilder().addBuilder(
-            SchemaIn.PSquare.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .PSquare elements = 1;</code>
-       */
-      public SchemaIn.PSquare.Builder addElementsBuilder(
-          int index) {
-        return getElementsFieldBuilder().addBuilder(
-            index, SchemaIn.PSquare.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .PSquare elements = 1;</code>
-       */
-      public java.util.List<SchemaIn.PSquare.Builder> 
-           getElementsBuilderList() {
-        return getElementsFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          SchemaIn.PSquare, SchemaIn.PSquare.Builder, SchemaIn.PSquareOrBuilder> 
-          getElementsFieldBuilder() {
-        if (elementsBuilder_ == null) {
-          elementsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              SchemaIn.PSquare, SchemaIn.PSquare.Builder, SchemaIn.PSquareOrBuilder>(
-                  elements_,
-                  ((bitField0_ & 0x00000001) != 0),
-                  getParentForChildren(),
-                  isClean());
-          elements_ = null;
-        }
-        return elementsBuilder_;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:PLine)
-    }
-
-    // @@protoc_insertion_point(class_scope:PLine)
-    private static final SchemaIn.PLine DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new SchemaIn.PLine();
-    }
-
-    public static SchemaIn.PLine getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<PLine>
-        PARSER = new com.google.protobuf.AbstractParser<PLine>() {
-      @java.lang.Override
-      public PLine parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new PLine(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<PLine> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<PLine> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public SchemaIn.PLine getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   public interface PPuzzleOrBuilder extends
       // @@protoc_insertion_point(interface_extends:PPuzzle)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .PLine board = 1;</code>
+     * <code>repeated .PSquare square = 1;</code>
      */
-    java.util.List<SchemaIn.PLine> 
-        getBoardList();
+    java.util.List<SchemaIn.PSquare> 
+        getSquareList();
     /**
-     * <code>repeated .PLine board = 1;</code>
+     * <code>repeated .PSquare square = 1;</code>
      */
-    SchemaIn.PLine getBoard(int index);
+    SchemaIn.PSquare getSquare(int index);
     /**
-     * <code>repeated .PLine board = 1;</code>
+     * <code>repeated .PSquare square = 1;</code>
      */
-    int getBoardCount();
+    int getSquareCount();
     /**
-     * <code>repeated .PLine board = 1;</code>
+     * <code>repeated .PSquare square = 1;</code>
      */
-    java.util.List<? extends SchemaIn.PLineOrBuilder> 
-        getBoardOrBuilderList();
+    java.util.List<? extends SchemaIn.PSquareOrBuilder> 
+        getSquareOrBuilderList();
     /**
-     * <code>repeated .PLine board = 1;</code>
+     * <code>repeated .PSquare square = 1;</code>
      */
-    SchemaIn.PLineOrBuilder getBoardOrBuilder(
+    SchemaIn.PSquareOrBuilder getSquareOrBuilder(
         int index);
   }
   /**
@@ -1936,7 +1079,7 @@ public final class SchemaIn {
       super(builder);
     }
     private PPuzzle() {
-      board_ = java.util.Collections.emptyList();
+      square_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -1972,11 +1115,11 @@ public final class SchemaIn {
               break;
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                board_ = new java.util.ArrayList<SchemaIn.PLine>();
+                square_ = new java.util.ArrayList<SchemaIn.PSquare>();
                 mutable_bitField0_ |= 0x00000001;
               }
-              board_.add(
-                  input.readMessage(SchemaIn.PLine.parser(), extensionRegistry));
+              square_.add(
+                  input.readMessage(SchemaIn.PSquare.parser(), extensionRegistry));
               break;
             }
             default: {
@@ -1995,7 +1138,7 @@ public final class SchemaIn {
             e).setUnfinishedMessage(this);
       } finally {
         if (((mutable_bitField0_ & 0x00000001) != 0)) {
-          board_ = java.util.Collections.unmodifiableList(board_);
+          square_ = java.util.Collections.unmodifiableList(square_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -2014,39 +1157,39 @@ public final class SchemaIn {
               SchemaIn.PPuzzle.class, SchemaIn.PPuzzle.Builder.class);
     }
 
-    public static final int BOARD_FIELD_NUMBER = 1;
-    private java.util.List<SchemaIn.PLine> board_;
+    public static final int SQUARE_FIELD_NUMBER = 1;
+    private java.util.List<SchemaIn.PSquare> square_;
     /**
-     * <code>repeated .PLine board = 1;</code>
+     * <code>repeated .PSquare square = 1;</code>
      */
-    public java.util.List<SchemaIn.PLine> getBoardList() {
-      return board_;
+    public java.util.List<SchemaIn.PSquare> getSquareList() {
+      return square_;
     }
     /**
-     * <code>repeated .PLine board = 1;</code>
+     * <code>repeated .PSquare square = 1;</code>
      */
-    public java.util.List<? extends SchemaIn.PLineOrBuilder> 
-        getBoardOrBuilderList() {
-      return board_;
+    public java.util.List<? extends SchemaIn.PSquareOrBuilder> 
+        getSquareOrBuilderList() {
+      return square_;
     }
     /**
-     * <code>repeated .PLine board = 1;</code>
+     * <code>repeated .PSquare square = 1;</code>
      */
-    public int getBoardCount() {
-      return board_.size();
+    public int getSquareCount() {
+      return square_.size();
     }
     /**
-     * <code>repeated .PLine board = 1;</code>
+     * <code>repeated .PSquare square = 1;</code>
      */
-    public SchemaIn.PLine getBoard(int index) {
-      return board_.get(index);
+    public SchemaIn.PSquare getSquare(int index) {
+      return square_.get(index);
     }
     /**
-     * <code>repeated .PLine board = 1;</code>
+     * <code>repeated .PSquare square = 1;</code>
      */
-    public SchemaIn.PLineOrBuilder getBoardOrBuilder(
+    public SchemaIn.PSquareOrBuilder getSquareOrBuilder(
         int index) {
-      return board_.get(index);
+      return square_.get(index);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -2063,8 +1206,8 @@ public final class SchemaIn {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      for (int i = 0; i < board_.size(); i++) {
-        output.writeMessage(1, board_.get(i));
+      for (int i = 0; i < square_.size(); i++) {
+        output.writeMessage(1, square_.get(i));
       }
       unknownFields.writeTo(output);
     }
@@ -2075,9 +1218,9 @@ public final class SchemaIn {
       if (size != -1) return size;
 
       size = 0;
-      for (int i = 0; i < board_.size(); i++) {
+      for (int i = 0; i < square_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, board_.get(i));
+          .computeMessageSize(1, square_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2094,8 +1237,8 @@ public final class SchemaIn {
       }
       SchemaIn.PPuzzle other = (SchemaIn.PPuzzle) obj;
 
-      if (!getBoardList()
-          .equals(other.getBoardList())) return false;
+      if (!getSquareList()
+          .equals(other.getSquareList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -2107,9 +1250,9 @@ public final class SchemaIn {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (getBoardCount() > 0) {
-        hash = (37 * hash) + BOARD_FIELD_NUMBER;
-        hash = (53 * hash) + getBoardList().hashCode();
+      if (getSquareCount() > 0) {
+        hash = (37 * hash) + SQUARE_FIELD_NUMBER;
+        hash = (53 * hash) + getSquareList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -2239,17 +1382,17 @@ public final class SchemaIn {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
-          getBoardFieldBuilder();
+          getSquareFieldBuilder();
         }
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        if (boardBuilder_ == null) {
-          board_ = java.util.Collections.emptyList();
+        if (squareBuilder_ == null) {
+          square_ = java.util.Collections.emptyList();
           bitField0_ = (bitField0_ & ~0x00000001);
         } else {
-          boardBuilder_.clear();
+          squareBuilder_.clear();
         }
         return this;
       }
@@ -2278,14 +1421,14 @@ public final class SchemaIn {
       public SchemaIn.PPuzzle buildPartial() {
         SchemaIn.PPuzzle result = new SchemaIn.PPuzzle(this);
         int from_bitField0_ = bitField0_;
-        if (boardBuilder_ == null) {
+        if (squareBuilder_ == null) {
           if (((bitField0_ & 0x00000001) != 0)) {
-            board_ = java.util.Collections.unmodifiableList(board_);
+            square_ = java.util.Collections.unmodifiableList(square_);
             bitField0_ = (bitField0_ & ~0x00000001);
           }
-          result.board_ = board_;
+          result.square_ = square_;
         } else {
-          result.board_ = boardBuilder_.build();
+          result.square_ = squareBuilder_.build();
         }
         onBuilt();
         return result;
@@ -2335,29 +1478,29 @@ public final class SchemaIn {
 
       public Builder mergeFrom(SchemaIn.PPuzzle other) {
         if (other == SchemaIn.PPuzzle.getDefaultInstance()) return this;
-        if (boardBuilder_ == null) {
-          if (!other.board_.isEmpty()) {
-            if (board_.isEmpty()) {
-              board_ = other.board_;
+        if (squareBuilder_ == null) {
+          if (!other.square_.isEmpty()) {
+            if (square_.isEmpty()) {
+              square_ = other.square_;
               bitField0_ = (bitField0_ & ~0x00000001);
             } else {
-              ensureBoardIsMutable();
-              board_.addAll(other.board_);
+              ensureSquareIsMutable();
+              square_.addAll(other.square_);
             }
             onChanged();
           }
         } else {
-          if (!other.board_.isEmpty()) {
-            if (boardBuilder_.isEmpty()) {
-              boardBuilder_.dispose();
-              boardBuilder_ = null;
-              board_ = other.board_;
+          if (!other.square_.isEmpty()) {
+            if (squareBuilder_.isEmpty()) {
+              squareBuilder_.dispose();
+              squareBuilder_ = null;
+              square_ = other.square_;
               bitField0_ = (bitField0_ & ~0x00000001);
-              boardBuilder_ = 
+              squareBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getBoardFieldBuilder() : null;
+                   getSquareFieldBuilder() : null;
             } else {
-              boardBuilder_.addAllMessages(other.board_);
+              squareBuilder_.addAllMessages(other.square_);
             }
           }
         }
@@ -2391,244 +1534,244 @@ public final class SchemaIn {
       }
       private int bitField0_;
 
-      private java.util.List<SchemaIn.PLine> board_ =
+      private java.util.List<SchemaIn.PSquare> square_ =
         java.util.Collections.emptyList();
-      private void ensureBoardIsMutable() {
+      private void ensureSquareIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          board_ = new java.util.ArrayList<SchemaIn.PLine>(board_);
+          square_ = new java.util.ArrayList<SchemaIn.PSquare>(square_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          SchemaIn.PLine, SchemaIn.PLine.Builder, SchemaIn.PLineOrBuilder> boardBuilder_;
+          SchemaIn.PSquare, SchemaIn.PSquare.Builder, SchemaIn.PSquareOrBuilder> squareBuilder_;
 
       /**
-       * <code>repeated .PLine board = 1;</code>
+       * <code>repeated .PSquare square = 1;</code>
        */
-      public java.util.List<SchemaIn.PLine> getBoardList() {
-        if (boardBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(board_);
+      public java.util.List<SchemaIn.PSquare> getSquareList() {
+        if (squareBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(square_);
         } else {
-          return boardBuilder_.getMessageList();
+          return squareBuilder_.getMessageList();
         }
       }
       /**
-       * <code>repeated .PLine board = 1;</code>
+       * <code>repeated .PSquare square = 1;</code>
        */
-      public int getBoardCount() {
-        if (boardBuilder_ == null) {
-          return board_.size();
+      public int getSquareCount() {
+        if (squareBuilder_ == null) {
+          return square_.size();
         } else {
-          return boardBuilder_.getCount();
+          return squareBuilder_.getCount();
         }
       }
       /**
-       * <code>repeated .PLine board = 1;</code>
+       * <code>repeated .PSquare square = 1;</code>
        */
-      public SchemaIn.PLine getBoard(int index) {
-        if (boardBuilder_ == null) {
-          return board_.get(index);
+      public SchemaIn.PSquare getSquare(int index) {
+        if (squareBuilder_ == null) {
+          return square_.get(index);
         } else {
-          return boardBuilder_.getMessage(index);
+          return squareBuilder_.getMessage(index);
         }
       }
       /**
-       * <code>repeated .PLine board = 1;</code>
+       * <code>repeated .PSquare square = 1;</code>
        */
-      public Builder setBoard(
-          int index, SchemaIn.PLine value) {
-        if (boardBuilder_ == null) {
+      public Builder setSquare(
+          int index, SchemaIn.PSquare value) {
+        if (squareBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureBoardIsMutable();
-          board_.set(index, value);
+          ensureSquareIsMutable();
+          square_.set(index, value);
           onChanged();
         } else {
-          boardBuilder_.setMessage(index, value);
+          squareBuilder_.setMessage(index, value);
         }
         return this;
       }
       /**
-       * <code>repeated .PLine board = 1;</code>
+       * <code>repeated .PSquare square = 1;</code>
        */
-      public Builder setBoard(
-          int index, SchemaIn.PLine.Builder builderForValue) {
-        if (boardBuilder_ == null) {
-          ensureBoardIsMutable();
-          board_.set(index, builderForValue.build());
+      public Builder setSquare(
+          int index, SchemaIn.PSquare.Builder builderForValue) {
+        if (squareBuilder_ == null) {
+          ensureSquareIsMutable();
+          square_.set(index, builderForValue.build());
           onChanged();
         } else {
-          boardBuilder_.setMessage(index, builderForValue.build());
+          squareBuilder_.setMessage(index, builderForValue.build());
         }
         return this;
       }
       /**
-       * <code>repeated .PLine board = 1;</code>
+       * <code>repeated .PSquare square = 1;</code>
        */
-      public Builder addBoard(SchemaIn.PLine value) {
-        if (boardBuilder_ == null) {
+      public Builder addSquare(SchemaIn.PSquare value) {
+        if (squareBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureBoardIsMutable();
-          board_.add(value);
+          ensureSquareIsMutable();
+          square_.add(value);
           onChanged();
         } else {
-          boardBuilder_.addMessage(value);
+          squareBuilder_.addMessage(value);
         }
         return this;
       }
       /**
-       * <code>repeated .PLine board = 1;</code>
+       * <code>repeated .PSquare square = 1;</code>
        */
-      public Builder addBoard(
-          int index, SchemaIn.PLine value) {
-        if (boardBuilder_ == null) {
+      public Builder addSquare(
+          int index, SchemaIn.PSquare value) {
+        if (squareBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureBoardIsMutable();
-          board_.add(index, value);
+          ensureSquareIsMutable();
+          square_.add(index, value);
           onChanged();
         } else {
-          boardBuilder_.addMessage(index, value);
+          squareBuilder_.addMessage(index, value);
         }
         return this;
       }
       /**
-       * <code>repeated .PLine board = 1;</code>
+       * <code>repeated .PSquare square = 1;</code>
        */
-      public Builder addBoard(
-          SchemaIn.PLine.Builder builderForValue) {
-        if (boardBuilder_ == null) {
-          ensureBoardIsMutable();
-          board_.add(builderForValue.build());
+      public Builder addSquare(
+          SchemaIn.PSquare.Builder builderForValue) {
+        if (squareBuilder_ == null) {
+          ensureSquareIsMutable();
+          square_.add(builderForValue.build());
           onChanged();
         } else {
-          boardBuilder_.addMessage(builderForValue.build());
+          squareBuilder_.addMessage(builderForValue.build());
         }
         return this;
       }
       /**
-       * <code>repeated .PLine board = 1;</code>
+       * <code>repeated .PSquare square = 1;</code>
        */
-      public Builder addBoard(
-          int index, SchemaIn.PLine.Builder builderForValue) {
-        if (boardBuilder_ == null) {
-          ensureBoardIsMutable();
-          board_.add(index, builderForValue.build());
+      public Builder addSquare(
+          int index, SchemaIn.PSquare.Builder builderForValue) {
+        if (squareBuilder_ == null) {
+          ensureSquareIsMutable();
+          square_.add(index, builderForValue.build());
           onChanged();
         } else {
-          boardBuilder_.addMessage(index, builderForValue.build());
+          squareBuilder_.addMessage(index, builderForValue.build());
         }
         return this;
       }
       /**
-       * <code>repeated .PLine board = 1;</code>
+       * <code>repeated .PSquare square = 1;</code>
        */
-      public Builder addAllBoard(
-          java.lang.Iterable<? extends SchemaIn.PLine> values) {
-        if (boardBuilder_ == null) {
-          ensureBoardIsMutable();
+      public Builder addAllSquare(
+          java.lang.Iterable<? extends SchemaIn.PSquare> values) {
+        if (squareBuilder_ == null) {
+          ensureSquareIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, board_);
+              values, square_);
           onChanged();
         } else {
-          boardBuilder_.addAllMessages(values);
+          squareBuilder_.addAllMessages(values);
         }
         return this;
       }
       /**
-       * <code>repeated .PLine board = 1;</code>
+       * <code>repeated .PSquare square = 1;</code>
        */
-      public Builder clearBoard() {
-        if (boardBuilder_ == null) {
-          board_ = java.util.Collections.emptyList();
+      public Builder clearSquare() {
+        if (squareBuilder_ == null) {
+          square_ = java.util.Collections.emptyList();
           bitField0_ = (bitField0_ & ~0x00000001);
           onChanged();
         } else {
-          boardBuilder_.clear();
+          squareBuilder_.clear();
         }
         return this;
       }
       /**
-       * <code>repeated .PLine board = 1;</code>
+       * <code>repeated .PSquare square = 1;</code>
        */
-      public Builder removeBoard(int index) {
-        if (boardBuilder_ == null) {
-          ensureBoardIsMutable();
-          board_.remove(index);
+      public Builder removeSquare(int index) {
+        if (squareBuilder_ == null) {
+          ensureSquareIsMutable();
+          square_.remove(index);
           onChanged();
         } else {
-          boardBuilder_.remove(index);
+          squareBuilder_.remove(index);
         }
         return this;
       }
       /**
-       * <code>repeated .PLine board = 1;</code>
+       * <code>repeated .PSquare square = 1;</code>
        */
-      public SchemaIn.PLine.Builder getBoardBuilder(
+      public SchemaIn.PSquare.Builder getSquareBuilder(
           int index) {
-        return getBoardFieldBuilder().getBuilder(index);
+        return getSquareFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .PLine board = 1;</code>
+       * <code>repeated .PSquare square = 1;</code>
        */
-      public SchemaIn.PLineOrBuilder getBoardOrBuilder(
+      public SchemaIn.PSquareOrBuilder getSquareOrBuilder(
           int index) {
-        if (boardBuilder_ == null) {
-          return board_.get(index);  } else {
-          return boardBuilder_.getMessageOrBuilder(index);
+        if (squareBuilder_ == null) {
+          return square_.get(index);  } else {
+          return squareBuilder_.getMessageOrBuilder(index);
         }
       }
       /**
-       * <code>repeated .PLine board = 1;</code>
+       * <code>repeated .PSquare square = 1;</code>
        */
-      public java.util.List<? extends SchemaIn.PLineOrBuilder> 
-           getBoardOrBuilderList() {
-        if (boardBuilder_ != null) {
-          return boardBuilder_.getMessageOrBuilderList();
+      public java.util.List<? extends SchemaIn.PSquareOrBuilder> 
+           getSquareOrBuilderList() {
+        if (squareBuilder_ != null) {
+          return squareBuilder_.getMessageOrBuilderList();
         } else {
-          return java.util.Collections.unmodifiableList(board_);
+          return java.util.Collections.unmodifiableList(square_);
         }
       }
       /**
-       * <code>repeated .PLine board = 1;</code>
+       * <code>repeated .PSquare square = 1;</code>
        */
-      public SchemaIn.PLine.Builder addBoardBuilder() {
-        return getBoardFieldBuilder().addBuilder(
-            SchemaIn.PLine.getDefaultInstance());
+      public SchemaIn.PSquare.Builder addSquareBuilder() {
+        return getSquareFieldBuilder().addBuilder(
+            SchemaIn.PSquare.getDefaultInstance());
       }
       /**
-       * <code>repeated .PLine board = 1;</code>
+       * <code>repeated .PSquare square = 1;</code>
        */
-      public SchemaIn.PLine.Builder addBoardBuilder(
+      public SchemaIn.PSquare.Builder addSquareBuilder(
           int index) {
-        return getBoardFieldBuilder().addBuilder(
-            index, SchemaIn.PLine.getDefaultInstance());
+        return getSquareFieldBuilder().addBuilder(
+            index, SchemaIn.PSquare.getDefaultInstance());
       }
       /**
-       * <code>repeated .PLine board = 1;</code>
+       * <code>repeated .PSquare square = 1;</code>
        */
-      public java.util.List<SchemaIn.PLine.Builder> 
-           getBoardBuilderList() {
-        return getBoardFieldBuilder().getBuilderList();
+      public java.util.List<SchemaIn.PSquare.Builder> 
+           getSquareBuilderList() {
+        return getSquareFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          SchemaIn.PLine, SchemaIn.PLine.Builder, SchemaIn.PLineOrBuilder> 
-          getBoardFieldBuilder() {
-        if (boardBuilder_ == null) {
-          boardBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              SchemaIn.PLine, SchemaIn.PLine.Builder, SchemaIn.PLineOrBuilder>(
-                  board_,
+          SchemaIn.PSquare, SchemaIn.PSquare.Builder, SchemaIn.PSquareOrBuilder> 
+          getSquareFieldBuilder() {
+        if (squareBuilder_ == null) {
+          squareBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              SchemaIn.PSquare, SchemaIn.PSquare.Builder, SchemaIn.PSquareOrBuilder>(
+                  square_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
-          board_ = null;
+          square_ = null;
         }
-        return boardBuilder_;
+        return squareBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -3477,11 +2620,6 @@ public final class SchemaIn {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_PSquare_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_PLine_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_PLine_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_PPuzzle_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -3500,13 +2638,12 @@ public final class SchemaIn {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\017schema_in.proto\"\205\001\n\007PSquare\022\r\n\005value\030\001" +
-      " \003(\005\022&\n\tneighbour\030\002 \003(\0162\023.PSquare.Direct" +
-      "ions\022\016\n\006solved\030\003 \001(\010\"3\n\nDirections\022\006\n\002Up" +
-      "\020\000\022\010\n\004Down\020\001\022\010\n\004Left\020\002\022\t\n\005Right\020\003\"#\n\005PLi" +
-      "ne\022\032\n\010elements\030\001 \003(\0132\010.PSquare\" \n\007PPuzzl" +
-      "e\022\025\n\005board\030\001 \003(\0132\006.PLine\"%\n\010PPuzzles\022\031\n\007" +
-      "puzzles\030\001 \003(\0132\010.PPuzzleb\006proto3"
+      "\n\017schema_in.proto\"u\n\007PSquare\022\r\n\005value\030\001 " +
+      "\003(\005\022&\n\tneighbour\030\002 \003(\0162\023.PSquare.Directi" +
+      "ons\"3\n\nDirections\022\006\n\002Up\020\000\022\010\n\004Down\020\001\022\010\n\004L" +
+      "eft\020\002\022\t\n\005Right\020\003\"#\n\007PPuzzle\022\030\n\006square\030\001 " +
+      "\003(\0132\010.PSquare\"%\n\010PPuzzles\022\031\n\007puzzles\030\001 \003" +
+      "(\0132\010.PPuzzleb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -3517,21 +2654,15 @@ public final class SchemaIn {
     internal_static_PSquare_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_PSquare_descriptor,
-        new java.lang.String[] { "Value", "Neighbour", "Solved", });
-    internal_static_PLine_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_PLine_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_PLine_descriptor,
-        new java.lang.String[] { "Elements", });
+        new java.lang.String[] { "Value", "Neighbour", });
     internal_static_PPuzzle_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(1);
     internal_static_PPuzzle_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_PPuzzle_descriptor,
-        new java.lang.String[] { "Board", });
+        new java.lang.String[] { "Square", });
     internal_static_PPuzzles_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(2);
     internal_static_PPuzzles_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_PPuzzles_descriptor,

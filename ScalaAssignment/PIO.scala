@@ -3,6 +3,7 @@ import scala.io.Source
 import Solver.SolveSquare
 import schema_out.PBoard
 import schema_out.PBoards
+import scala.math.sqrt
 import SchemaIn.PPuzzle
 import SchemaIn.PPuzzles
 
@@ -18,13 +19,8 @@ class PIO {
   var inBin = new FileInputStream(new File("ScalaAssignment/puzzle_unsolved.bin"))
   var puzzles = PPuzzles.parseFrom(inBin).getPuzzlesList;
   println(puzzles)
-  for (f<-puzzles.getPuzzlesList.toArray()){
-    solveBoard(f)
-  }
 
-  puzzles.forEach(
-    solveBoard(_);
-  )
+  puzzles.forEach(solveBoard(_))
 
   for(f<-dir.listFiles().toList){
     if(f.getName() == "puzzle_unsolved.txt"){
@@ -41,11 +37,39 @@ class PIO {
   }
 
 
-  def solveBoard(s:PPuzzle) = {
-    val XL = s.getBoardCount
+  def solveBoard(s:PPuzzle):Unit = {
+    val XL = sqrt(s.getSquareCount).toInt
     var allSquares = List[Square]();
     var neighbours : List[((Int,Int),(Int,Int))] = List()
 
+    var x = 0;
+    var y = 0;
+    for(i<- 0 to s.getSquareCount-1){
+      var square = s.getSquare(i)
+      if(square.getValueCount > 0){
+        val newsquare = new Square(x+1,y+1,List(square.getValue(0)));
+        allSquares = allSquares :+ newsquare;
+      }else{
+        val newsquare = new Square(x+1,y+1,List.range(1,XL+1));
+        allSquares = allSquares :+ newsquare;
+      }
+
+      if(square.getNeighbourList.contains(SchemaIn.PSquare.Directions.Left)){
+        val neighbour = ((x,y),(x-1,y))
+        neighbours = neighbours :+ neighbour;
+      }
+      if(square.getNeighbourList.contains(SchemaIn.PSquare.Directions.Up)){
+        val neighbour = ((x,y),(x,y-1))
+        neighbours = neighbours :+ neighbour;
+      }
+
+      if(x == XL-1){
+        x = 0;
+        y += 1;
+      }else{
+        x += 1;
+      }
+    }
 
     def getSquareXY(x:Int, y:Int):Square = {
       if(x > XL || y > XL || x ==0 || y ==0) return null
@@ -110,6 +134,6 @@ class PIO {
     }
     if(digitarray!= "")
       board.addSquares(digitarray.toInt);
-    board.build();
+    boards.addBoards(board);
   }
 }
