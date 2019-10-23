@@ -1,7 +1,12 @@
-import java.io._;
-import Solver.SolveSquare;
-import schema_out.PBoard;
-import schema_out.PBoards;
+import java.io._
+import scala.io.Source
+import Solver.SolveSquare
+import schema_out.PBoard
+import schema_out.PBoards
+import SchemaIn.PPuzzle
+import SchemaIn.PPuzzles
+
+import scala.io.Source
 
 class PIO {
   val inputdir = "ScalaAssignment/";
@@ -9,12 +14,23 @@ class PIO {
   var boards = schema_out.PBoards.newBuilder();
 
   val dir = new File(inputdir);
-  for(f<-dir.listFiles()){
+
+  var inBin = new FileInputStream(new File("ScalaAssignment/puzzle_unsolved.bin"))
+  var puzzles = PPuzzles.parseFrom(inBin).getPuzzlesList;
+  println(puzzles)
+  for (f<-puzzles.getPuzzlesList.toArray()){
+    solveBoard(f)
+  }
+
+  puzzles.forEach(
+    solveBoard(_);
+  )
+
+  for(f<-dir.listFiles().toList){
     if(f.getName() == "puzzle_unsolved.txt"){
       val lines = scala.io.Source.fromFile(f).mkString.split("\n")
-      solveNextBoard(lines.takeRight(lines.length-1))
       val out = new FileOutputStream(new File("ScalaAssignment/sample.bin"))
-      boards.build().writeTo(out)
+      boards.build().writeTo(out);
 
       var in = new FileInputStream("ScalaAssignment/sample.bin");
       var inboard = schema_out.PBoards.parseFrom(in);
@@ -24,48 +40,12 @@ class PIO {
     }
   }
 
-  def solveNextBoard(s:Array[String]):Unit = {
-    val XL = s(0).toCharArray()(5).asDigit;
-    val solved = solveBoard(s.take(XL*2));
-    if(s.length > XL*2){
-      boards.addBoards(solved);
-      solveNextBoard(s.takeRight(s.length-XL*2))
-    }else{
-      boards.addBoards(solved);
-    }
-  }
 
-  def solveBoard(s:Array[String]):PBoard = {
-    val lines = s;
-    val XL = lines(0).toCharArray()(5).asDigit;
-
+  def solveBoard(s:PPuzzle) = {
+    val XL = s.getBoardCount
     var allSquares = List[Square]();
     var neighbours : List[((Int,Int),(Int,Int))] = List()
-    for(y<- 1 until XL*2){
-      val l = lines(y).toCharArray;
-      for(x<- 0 until XL*3+2 by 2){
-        l(x) match{
-          case '_' => {
-            val s = new Square(x/4+1,(y-1)/2+1,List.range(1,XL+1));
-            allSquares = allSquares :+ s;
-          };
-          case 'x'  => {
-            if(y%2 != 0){
-              val neighbour = (((x-2)/4,(y-1)/2),((x+2)/4,(y-1)/2))
-              neighbours = neighbours :+ neighbour;
-            }else{
-              val neighbour = ((x/4,((y-1)/2)),(x/4,y/2));
-              neighbours = neighbours :+ neighbour;
-            }
-          };
-          case ' ' =>;
-          case _ => {
-            val s = new Square(x/4+1,(y-1)/2+1, values = List(l(x).asDigit), solved = true);
-            allSquares = allSquares :+ s;
-          };
-        }
-      }
-    }
+
 
     def getSquareXY(x:Int, y:Int):Square = {
       if(x > XL || y > XL || x ==0 || y ==0) return null

@@ -2,6 +2,7 @@
   <library name="protobuf-java-3.9.2">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/../Downloads/protobuf-java-3.9.2.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/protobuf-java-3.9.2.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

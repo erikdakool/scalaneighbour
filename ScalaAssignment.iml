@@ -11,11 +11,12 @@
       <sourceFolder url="file://$MODULE_DIR$/ScalaAssignment" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/python" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="scala-sdk-2.13.0" level="application" />
     <orderEntry type="library" name="protobuf-java-3.9.2" level="project" />
     <orderEntry type="library" name="Bundled Protobuf Distribution" level="application" />
     <orderEntry type="library" name="Python 3.7 interpreter library" level="application" />
+    <orderEntry type="library" name="scala-sdk-2.12.4" level="application" />
   </component>
 </module>
